@@ -1,4 +1,5 @@
 # # Test Evn
+
 class Point:
     def __init__(self, argX, argY):
         self.x = argX 
@@ -12,16 +13,15 @@ class Point:
         return 
 
 
-PointOne = Point(10,0)
+PointOne = Point(10,15)
 print(PointOne.x)
 print(PointOne.y)
-PointTwo = Point(5,0)
+PointTwo = Point(20,30)
 print(PointTwo.x)
 print(PointTwo.y)
 
-print(((PointTwo.x - PointOne.x)**2) + ((PointTwo.y - PointOne.y)**2))**0.5
-((3 - 4)**2) + ((0 - 0)**2)**0.5
-print()
+print((((PointTwo.x - PointOne.x)**2) + ((PointTwo.y - PointOne.y)**2))**0.5)
+
 
 # √((x_2-x_1)²+(y_2-y_1)²)
 
