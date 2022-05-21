@@ -638,7 +638,7 @@ my_function("Tobias")
 my_function("Linus")
 
 
-___________________________________________________________________________________________________________________________
+
 Files
 
 	•  open(path,"perms") - open the file (path - type the specific file path, set the permissions r(read) or w+(write and read)
@@ -655,5 +655,8 @@ Files
 	•  seek - sets where you start reading the file
 	• 
 	
+
+
+yuval was here
 
 
