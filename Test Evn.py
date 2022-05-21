@@ -12,17 +12,18 @@ class Point:
         return 
 
 
-Themath = Point(3,0)
-print(Themath.x)
-print(Themath.y)
-other_point = Point(4,5)
-print(other_point.x)
-print(other_point.y)
+PointOne = Point(10,0)
+print(PointOne.x)
+print(PointOne.y)
+PointTwo = Point(5,0)
+print(PointTwo.x)
+print(PointTwo.y)
 
-print(((other_point.x- Themath.x)**2) + ((other_point.y - Themath.y)**2)**0.5)
+print(((PointTwo.x - PointOne.x)**2) + ((PointTwo.y - PointOne.y)**2))**0.5
+((3 - 4)**2) + ((0 - 0)**2)**0.5
+print()
 
-
-# yuval was here
+# √((x_2-x_1)²+(y_2-y_1)²)
 
 
 
