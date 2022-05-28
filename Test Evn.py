@@ -1,13 +1,15 @@
 class AllinOne:
-    def bob(test,a ,b ,c):
+    def HackTools(Elvo,a ,b ,c):
 
-        a= print("Welcome to All-in-One-Hacker Tool")
-        b = print('''
-        For Brute-Force enter Brute Force
-        For AES encryption enter AES Encryption 
+        print("Welcome to All-in-One-Elvo Tool")
+        print('''
+    Choose Your Option From The List Below :)
+    
+        1.For Brute-Force enter Brute Force
+        2.For AES encryption enter AES
         ''')
-        User_Choice = input("Choose what to do: ").upper()
-        c = print("You chose: " , User_Choice.capitalize())
+        User_Choice = input("And your choice would be?\n...: ").upper()
+        print("You chose...: " , User_Choice.capitalize())
 
 
         # Test module!
@@ -22,7 +24,7 @@ class AllinOne:
         if User_Choice == 'BRUTE FORCE':
             import requests
 
-            url = input('Place  the URL: ')
+            url = input('Place the URL: ')
             username = input('Place the username: ')
             # chars =  "123"
 
@@ -67,7 +69,6 @@ class AllinOne:
 
             import hashlib
             import base64
-
             from Crypto.Cipher import AES
             from Crypto.Util.Padding import pad, unpad
             from Crypto.Random import get_random_bytes
@@ -95,7 +96,10 @@ class AllinOne:
 
 
                 filepath =input('Place the Path to Encrypt...: ')
-                msg = open(filepath).read()
+
+
+
+                msg = open(filepath, 'r').read()
                 base64encoding = base64.b64encode(str(msg).encode('ascii'))
                 SHA256encoding = hashlib.sha256(str(msg).encode('UTF-8')).hexdigest()
                 print(f'Base64...:{base64encoding}\nSHA256...: {SHA256encoding}')
@@ -107,16 +111,20 @@ class AllinOne:
 
             # Decrypt part
             #
-            if AESQuestion == "2":
+            elif AESQuestion == "2":
                 Question = input("Are you sure? Yes/No...: ").capitalize()
 
                 if Question == 'Yes':
                     a = ''
                     print('Place the file Path to Decrypt')
-                    filepath = input('Place the Path to Encrypt...: ')
+                    filepath = input('Place the Path to Decrypt...: ')
                     print('Place The AES Hash to Decrypt')
                     decryptmsg = input('AES Hash...: ')
+
+
+
                     print('Decrypted Has...:\n', AESCipher(a).decrypt(decryptmsg).decode('utf-8'))
+
 
                     with open(filepath, 'w') as f:
                         f.write(AESCipher(a).decrypt(decryptmsg).decode('utf-8'))
@@ -125,18 +133,16 @@ class AllinOne:
                 elif Question == 'No':
                     print('As you wish')
 
-
-
-
+            else:
+                print("That's not one of the options... start again\n")
+                return object.HackTools('Elvo.a','Elvo.b','Elvo.c','')
 
 
         # -----------------------AES-----------------------
         else:
-            object = AllinOne
-            object.bob('test.a', 'test.b', 'test.c', '')
-            print("Not an option :( , Try again...")
-            return  object.bob('test.a','test.b','test.c','')
+            print("\nNot an option :( , Try again...\n")
+            return object.HackTools('Elvo.a','Elvo.b','Elvo.c','')
 
 
 object = AllinOne
-object.bob('test.a','test.b','test.c','')
+object.HackTools('Elvo.a','Elvo.b','Elvo.c','')
