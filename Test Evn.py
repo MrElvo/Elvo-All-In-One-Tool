@@ -1,19 +1,26 @@
+#----------AES imports----------
 import glob
 import hashlib
 import base64
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
+import re
 import os
+import sys
+from Crypto.Random import get_random_bytes
+
+
+#-----------Brute Force imports-------
 import requests
 import random
-from Crypto.Random import get_random_bytes
+
 
 '''
 TODO:
 
 1.sub domain brute force from a file.
 2. nmap
-3.
+3.AES sub folders encrypt
 
 
 '''
@@ -194,27 +201,66 @@ Choose Your Option From The List Below :)
 
                 # filepath =input('Place the Path to Encrypt...: ')
                 folderpath = input('Place the Folder Path...: ')
+                looptimes = int(input('Number of loops...:'))
+                if looptimes == 0:
+                    looptimes = 1
 
                 counter = 1
-                for file in os.listdir(folderpath):
-                    fullpath = f'{folderpath}\{file}'
+                # for times in range(looptimes):
+
+                # for dirpath, dirnames, filenames in os.walk(folderpath):
+                #     # whatever you want to do with these folders
+                #     print(dirpath, dirnames, filenames)
+
+                complete_files = []
+                for root, dir_names, file_names in os.walk(folderpath):
+                    for f in file_names:
+                        complete_files.append(os.path.join(root, f))
+                        subfolderpath = complete_files
+                print("The complete set of files are ", complete_files)
+                subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
 
 
-                    msg = open(fullpath, 'r').read()
-                    base64encoding = base64.b64encode(str(msg).encode('ascii'))
-                    SHA256encoding = hashlib.sha256(str(msg).encode('UTF-8')).hexdigest()
-                    print(f'Base64...:{base64encoding}\nSHA256...: {SHA256encoding}')
 
 
-                    a = b'1234567890123456'
-                    print('AES...:', AESCipher(a).encrypt(msg).decode('UTF-8'))
-                    print('next file')
 
-                    with open(fullpath, 'w') as f:
-                        f.write(AESCipher(a).encrypt(msg).decode('UTF-8'))
-                        f.close()
-                        print('File...: ' + str(counter))
-                        counter += 1
+# take subfolderpath[]
+# pass each one until there is no more
+# encrypt each file at those folders
+
+
+
+                for times in range(looptimes):
+
+                    for file in os.listdir(folderpath):
+                        fullpath = f'{folderpath}\{file}'
+
+                        msg = open(fullpath, 'r').read()
+                        base64encoding = base64.b64encode(str(msg).encode('ascii'))
+                        SHA256encoding = hashlib.sha256(str(msg).encode('UTF-8')).hexdigest()
+                        print(f'\nFile Number...: {counter}\nLoop Time...: {times},{looptimes}\nFile Name...:{file}\nBase64...:{base64encoding}\nSHA256...: {SHA256encoding}')
+
+                        encrykey = b'1234567890123456'
+                        print('AES...:', AESCipher(encrykey).encrypt(msg).decode('UTF-8'))
+                        print(f'\n-----next file-----')
+
+                        with open(fullpath, 'w') as f:
+                            f.write(AESCipher(encrykey).encrypt(msg).decode('UTF-8'))
+                            f.close()
+                            # print('File...: ' + str(counter))
+                            counter += 1
+
+
+
+
+
+
+
+                    # print("The complete set of files are ", complete_files)
+
+                print('')
+
+
 
 
             # Decrypt part
@@ -225,20 +271,24 @@ Choose Your Option From The List Below :)
 
                 if Question == 'Yes':
                     folderpath = input('Place the Folder Path...: ')
+                    looptimes = int(input('Number of loops...:'))
 
-                    for file in os.listdir(folderpath):
-                        fullpath = f'{folderpath}\{file}'
+                    counter = 1
+                    for times in range(looptimes):
+                        for file in os.listdir(folderpath):
+                            fullpath = f'{folderpath}\{file}'
 
-                        msg = open(fullpath, 'r').read()
+                            msg = open(fullpath, 'r').read()
 
-                        a = b'1234567890123456'
-                        print('AES...:', AESCipher(a).decrypt(msg).decode('UTF-8'))
-                        print('next file')
+                            encrykey = b'1234567890123456'
+                            print(f'\nFile Number...: {counter}\nLoop Time...: {times},{looptimes}\nFile Name...:{file}')
+                            print('AES...:', AESCipher(encrykey).decrypt(msg).decode('UTF-8'))
+                            print(f'\n-----next file-----')
 
-                        with open(fullpath, 'w') as f:
-                            f.write(AESCipher(a).decrypt(msg).decode('UTF-8'))
-                            f.close()
-
+                            with open(fullpath, 'w') as f:
+                                f.write(AESCipher(encrykey).decrypt(msg).decode('UTF-8'))
+                                f.close()
+                                counter +=1
 
                 elif Question == 'No':
                     print('As you wish')
