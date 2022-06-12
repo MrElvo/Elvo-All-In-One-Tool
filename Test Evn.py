@@ -199,41 +199,29 @@ Choose Your Option From The List Below :)
 
             if AESQuestion == "1":
 
-                # filepath =input('Place the Path to Encrypt...: ')
                 folderpath = input('Place the Folder Path...: ')
                 looptimes = int(input('Number of loops...:'))
                 if looptimes == 0:
                     looptimes = 1
 
                 counter = 1
-                # for times in range(looptimes):
-
-                # for dirpath, dirnames, filenames in os.walk(folderpath):
-                #     # whatever you want to do with these folders
-                #     print(dirpath, dirnames, filenames)
 
                 complete_files = []
                 for root, dir_names, file_names in os.walk(folderpath):
                     for f in file_names:
                         complete_files.append(os.path.join(root, f))
-                        subfolderpath = complete_files
-                print("The complete set of files are ", complete_files)
-                subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
+# ------ NOTES --------
+# subfolderpath = complete_files
+# print("The complete set of files are ", complete_files)
 
-
-
-
-
-# take subfolderpath[]
-# pass each one until there is no more
-# encrypt each file at those folders
-
-
+# subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
+#
+# for line in complete_files:
+#     print(line) # prints each line of path
 
                 for times in range(looptimes):
-
-                    for file in os.listdir(folderpath):
-                        fullpath = f'{folderpath}\{file}'
+                    for file in complete_files:
+                        fullpath = f'{file}'
 
                         msg = open(fullpath, 'r').read()
                         base64encoding = base64.b64encode(str(msg).encode('ascii'))
@@ -250,19 +238,6 @@ Choose Your Option From The List Below :)
                             # print('File...: ' + str(counter))
                             counter += 1
 
-
-
-
-
-
-
-                    # print("The complete set of files are ", complete_files)
-
-                print('')
-
-
-
-
             # Decrypt part
             #
             elif AESQuestion == "2":
@@ -273,11 +248,32 @@ Choose Your Option From The List Below :)
                     folderpath = input('Place the Folder Path...: ')
                     looptimes = int(input('Number of loops...:'))
 
-                    counter = 1
-                    for times in range(looptimes):
-                        for file in os.listdir(folderpath):
-                            fullpath = f'{folderpath}\{file}'
+                    if looptimes == 0:
+                        looptimes = 1
 
+                    counter = 1
+                    # for times in range(looptimes):
+
+                    # for dirpath, dirnames, filenames in os.walk(folderpath):
+                    #     # whatever you want to do with these folders
+                    #     print(dirpath, dirnames, filenames)
+
+                    complete_files = []
+                    for root, dir_names, file_names in os.walk(folderpath):
+                        for f in file_names:
+                            complete_files.append(os.path.join(root, f))
+# ------ NOTES --------
+# subfolderpath = complete_files
+# print("The complete set of files are ", complete_files)
+
+# subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
+#
+# for line in complete_files:
+#     print(line) # prints each line of path
+
+                    for times in range(looptimes):
+                        for file in complete_files:
+                            fullpath = f'{file}'
                             msg = open(fullpath, 'r').read()
 
                             encrykey = b'1234567890123456'
