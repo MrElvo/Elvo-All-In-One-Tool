@@ -7,6 +7,7 @@ from Crypto.Util.Padding import pad, unpad
 import re
 import os
 import sys
+import os.path
 from Crypto.Random import get_random_bytes
 
 
@@ -20,8 +21,8 @@ TODO:
 
 1.sub domain brute force from a file.
 2. nmap
-3.AES sub folders encrypt
-
+3.dir buster
+4.
 
 '''
 
@@ -34,10 +35,10 @@ class AllinOne:
         print('''
 Choose Your Option From The List Below :)
 
-    1.For Brute-Force enter Brute Force
-    2.For AES encryption enter AES
+    1.For Brute-Force enter [1]
+    2.For AES encryption enter [2]
  ''')
-        User_Choice = input("And your choice would be?\n...: ").upper()
+        User_Choice = input("And your choice would be?\n...: ")
         print("You chose...: ", User_Choice.capitalize())
 
         # Test module!
@@ -53,7 +54,7 @@ Choose Your Option From The List Below :)
 
 
         # -----------------------Brute Force-----------------------
-        if User_Choice == 'BRUTE FORCE':
+        if User_Choice == '1':
 
 
             BruteIntro = print('''How would you like to Brute Force?
@@ -175,7 +176,7 @@ Choose Your Option From The List Below :)
 
 
         # -----------------------AES-----------------------
-        elif User_Choice == 'AES':
+        elif User_Choice == '2':
             AESQuestion = input("To Encrypt[1]\nTo Decrypt[2]\n...:")
 
 
@@ -199,69 +200,59 @@ Choose Your Option From The List Below :)
 
             if AESQuestion == "1":
 
-                # filepath =input('Place the Path to Encrypt...: ')
                 folderpath = input('Place the Folder Path...: ')
-                looptimes = int(input('Number of loops...:'))
-                if looptimes == 0:
-                    looptimes = 1
+                existspath = os.path.exists(folderpath)
+                if existspath == True:
+                    pass
+                else:
+                    print('\nPath Not Found.. Try Again.\n' )
+                    return object.HackTools('Elvo.a')
+
+                looptimes = (input('Number of loops...:'))
+                try:
+                    number = int(looptimes)
+                    pass
+                except ValueError:
+                    print('\nThats not a Number Try Again.\n')
+                    return object.HackTools('Elvo.a')
+
+                if number <= 0:
+                    number = 1
 
                 counter = 1
-                # for times in range(looptimes):
-
-                # for dirpath, dirnames, filenames in os.walk(folderpath):
-                #     # whatever you want to do with these folders
-                #     print(dirpath, dirnames, filenames)
 
                 complete_files = []
                 for root, dir_names, file_names in os.walk(folderpath):
                     for f in file_names:
                         complete_files.append(os.path.join(root, f))
-                        subfolderpath = complete_files
-                print("The complete set of files are ", complete_files)
-                subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
+# ------ NOTES --------
+# subfolderpath = complete_files
+# print("The complete set of files are ", complete_files)
 
+# subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
+#
+# for line in complete_files:
+#     print(line) # prints each line of path
 
+                for times in range(number):
+                    for file in complete_files:
+                        fullpath = f'{file}'
 
-
-
-# take subfolderpath[]
-# pass each one until there is no more
-# encrypt each file at those folders
-
-
-
-                for times in range(looptimes):
-
-                    for file in os.listdir(folderpath):
-                        fullpath = f'{folderpath}\{file}'
-
-                        msg = open(fullpath, 'r').read()
-                        base64encoding = base64.b64encode(str(msg).encode('ascii'))
+                        msg = open(fullpath, 'r' , encoding="utf-8").read()
+                        base64encoding = base64.b64encode(str(msg).encode('utf-8'))
                         SHA256encoding = hashlib.sha256(str(msg).encode('UTF-8')).hexdigest()
-                        print(f'\nFile Number...: {counter}\nLoop Time...: {times},{looptimes}\nFile Name...:{file}\nBase64...:{base64encoding}\nSHA256...: {SHA256encoding}')
+                        print(f'\nFile Number...: {counter}\nLoop Time...: {times},{number}\nFile Name...:{file}\nBase64...:{base64encoding}\nSHA256...: {SHA256encoding}')
 
                         encrykey = b'1234567890123456'
                         print('AES...:', AESCipher(encrykey).encrypt(msg).decode('UTF-8'))
                         print(f'\n-----next file-----')
 
                         with open(fullpath, 'w') as f:
+                            # insidemsg = 'Your info was encrypted by All-In-One-Elvo-Tool :(\n\n'
+                            # f.write(insidemsg)
                             f.write(AESCipher(encrykey).encrypt(msg).decode('UTF-8'))
                             f.close()
-                            # print('File...: ' + str(counter))
                             counter += 1
-
-
-
-
-
-
-
-                    # print("The complete set of files are ", complete_files)
-
-                print('')
-
-
-
 
             # Decrypt part
             #
@@ -272,13 +263,33 @@ Choose Your Option From The List Below :)
                 if Question == 'Yes':
                     folderpath = input('Place the Folder Path...: ')
                     looptimes = int(input('Number of loops...:'))
+                    if looptimes <= 0:
+                        looptimes = 1
 
                     counter = 1
-                    for times in range(looptimes):
-                        for file in os.listdir(folderpath):
-                            fullpath = f'{folderpath}\{file}'
+                    # for times in range(looptimes):
 
-                            msg = open(fullpath, 'r').read()
+                    # for dirpath, dirnames, filenames in os.walk(folderpath):
+                    #     # whatever you want to do with these folders
+                    #     print(dirpath, dirnames, filenames)
+
+                    complete_files = []
+                    for root, dir_names, file_names in os.walk(folderpath):
+                        for f in file_names:
+                            complete_files.append(os.path.join(root, f))
+                    # ------ NOTES --------
+                    # subfolderpath = complete_files
+                    # print("The complete set of files are ", complete_files)
+
+                    # subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
+                    #
+                    # for line in complete_files:
+                    #     print(line) # prints each line of path
+
+                    for times in range(looptimes):
+                        for file in complete_files:
+                            fullpath = f'{file}'
+                            msg = open(fullpath, 'r', encoding="utf-8").read()
 
                             encrykey = b'1234567890123456'
                             print(f'\nFile Number...: {counter}\nLoop Time...: {times},{looptimes}\nFile Name...:{file}')
@@ -288,8 +299,7 @@ Choose Your Option From The List Below :)
                             with open(fullpath, 'w') as f:
                                 f.write(AESCipher(encrykey).decrypt(msg).decode('UTF-8'))
                                 f.close()
-                                counter +=1
-
+                                counter += 1
                 elif Question == 'No':
                     print('As you wish')
 
@@ -306,3 +316,19 @@ Choose Your Option From The List Below :)
 
 object = AllinOne
 object.HackTools('Elvo.a')
+
+
+# ------ NOTES --------
+# for times in range(looptimes):
+
+# for dirpath, dirnames, filenames in os.walk(folderpath):
+#     # whatever you want to do with these folders
+#     print(dirpath, dirnames, filenames)
+
+# subfolderpath = complete_files
+# print("The complete set of files are ", complete_files)
+
+# subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
+#
+# for line in complete_files:
+#     print(line) # prints each line of path
