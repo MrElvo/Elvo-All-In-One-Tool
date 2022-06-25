@@ -1,30 +1,41 @@
 # ----------Banner--------
-import pyfiglet
 from pyfiglet import Figlet
-
 # ----------Fernet imports----------
 import base64
 import os
-from cryptography.fernet import Fernet
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet, InvalidToken
 import hashlib
-
 # -----------Brute Force imports-------
 import requests
 import random
+# -----------Check+Hasher imports-------
+import re
+import bcrypt
+# -----------Wifi SSIDs imports-------
+import subprocess
+# -----------IMPORTS-------
+
+
+
+
+custom_fig = Figlet(font='5lineoblique')
+print(custom_fig.renderText("Welcome To Elvo All In One Tool"))
 
 
 class AllinOne:
     def HackTools(Elvo):
-        custom_fig = Figlet(font='5lineoblique')
-        print(custom_fig.renderText("Welcome To Elvo All In One Tool"))
-        custom_menu = Figlet(font='digital')
-        print(custom_menu.renderText('''
-    1.For Brute-Force Enter 1
-    2.For Fernet Encryption Enter 2
+        # custom_menu = Figlet(font='digital')
+        print(('''
+Welcome to the Main Menu!
+
+    1.For Brute-Force             [1]
+    2.For Fernet Encryption       [2]
+    3.For Password Checker+Hasher [3]
+    4.Wifi SSIDs                  [4]
+
  '''))
         User_Choice = input("And your choice would be?\n...: ")
         print("You chose...: ", User_Choice)
@@ -42,14 +53,15 @@ class AllinOne:
             def QUESTIONBRUTEFORCE():
                 custombruteforce = Figlet(font='bubble')
 
-                print(custombruteforce.renderText("Welcome To Elvo\n "
-                                                  "Encryptor"))
+                print(custombruteforce.renderText('''"Welcome To Elvo\n 
+                                                  Brute-Forcer'''))
 
                 BruteIntro = print('''How would you like to Brute Force?
 
         1.With a Worldlist [1]
         2.With Random Numbers[2]
         3.With Your Own Characters[3]
+        4. To Main Menu [4]
     ''')
 
                 BruteChoice = input(str("And your choice would be?\n...: "))
@@ -163,6 +175,9 @@ class AllinOne:
                     except requests.exceptions.MissingSchema:
                         return print('\nsomething is incorrect :( Try again :)\n'), QUESTIONBRUTEFORCE()
 
+                elif BruteChoice == '4':
+                    return object.HackTools('Elvo.a')
+
                 else:
                     print("That's not one of the options... start again\n")
                     return QUESTIONBRUTEFORCE()
@@ -203,8 +218,12 @@ class AllinOne:
 
             def QUESTIONFERNET():
 
-                FERNETQUESTION = input("\nWhat woud you like to do?\n"
-                                       "To Encrypt[1]\nTo Decrypt[2]\n...:")
+                FERNETQUESTION = input('''What woud you like to do?"
+
+   To Encrypt   [1]
+   To Decrypt   [2]
+   To Main Menu [3]
+   ...:''')
 
                 if FERNETQUESTION == '1':
                     # TODO: --------------Encryption--------------
@@ -214,7 +233,7 @@ class AllinOne:
                         number = int(looptimes)
                         pass
                     except ValueError:
-                        print('\nThats not a number...\n')
+                        print('\nSomething is\'nt right... try again.\n')
                         return QUESTIONFERNET()
                     if number <= 0:
                         number = 1
@@ -257,7 +276,7 @@ class AllinOne:
                             number = int(looptimes)
                             pass
                         except ValueError:
-                            print('\nThats not a number...\n')
+                            print('\nSomething is\'nt right... try again.\n')
                             return QUESTIONFERNET()
                         if number <= 0:
                             number = 1
@@ -291,23 +310,195 @@ class AllinOne:
                                 except InvalidToken as e:
                                     print("No more files to decrypt :)")
 
+
                     else:
                         print("That's not one of the options... start again\n")
                         return QUESTIONFERNET()
 
+                elif FERNETQUESTION == '3':
+                    return object.HackTools('Elvo.a')
+
 
                 else:
-                    return print('NOT AN OPTION TRY AGAIN!'), QUESTIONFERNET()
+                    return print('\nNOT AN OPTION TRY AGAIN!\n'), QUESTIONFERNET()
 
             QUESTIONFERNET()
             # -----------------------Fernet-----------------------
 
+            # -----------------------Password Checker+Hasher-----------------------
+        elif User_Choice == '3':
+            customcheckerhasher = Figlet(font='bubble')
+
+            print(customcheckerhasher.renderText('''Welcome To Elvo\nPassword Checker \nand Hasher'''))
+            def PASSCHECKER():
+                print(''' 
+Welcome!
+Here you can check if your password is strong enough.
+Password MUST have:
+    1. Minimum 6 characters long.
+    2. Has to be in ENGLISH!.
+    3. Has to have lower case letter.
+    4. Has to have at least one number.
+    5. Has to have at least one upper case character.
+    6. Has to have at least one special character.
+    7. Cant have spaces!.
+                ''')
+
+                PASSWORD = input("Check your password: ")
+                x = True
+                while x:
+                    if (len(PASSWORD) < 6 or len(PASSWORD) > 100):
+                        print("\nPassword length between 6 and 12 please")
+                        break
+                    elif not re.search("[a-z]", PASSWORD):
+                        print("\nYou need at least one lower case letter")
+                        break
+                    elif not re.search("[0-9]", PASSWORD):
+                        print("\nYou need at least one number")
+                        break
+                    elif not re.search("[A-Z]", PASSWORD):
+                        print("\nYou need at least one upper case character")
+                        break
+                    elif not re.search("[!@#$%^&*]", PASSWORD):
+                        print("\nYou need at least one special character please")
+                        break
+                    elif re.search("\s", PASSWORD):
+                        print("\nYou cannot have blank spaces in your password...")
+                        break
+
+                    else:
+                        print("Your Password is strong enough")
+                        x = False
+
+                        # -------------Password Hasher-------------
+                        def PASSHASHER():
+                            print('Would you like to hash your Password?')
+                            PASSHASH = input('''
+Yes       [1]
+No        [2]
+No brings you back the the Main Menu!
+...:''')
+                            y = True
+                            while y:
+                                if PASSHASH == '1':
+                                    y = False
+                                    PWDHASH = PASSHASH
+                                    bytePWDHASH = PWDHASH.encode('utf-8')
+
+                                    SALT = bcrypt.gensalt()
+                                    hash = bcrypt.hashpw(bytePWDHASH, SALT).decode('utf-8')
+
+                                    with open('Passwordhash.txt', 'w') as f:
+                                        f.write('The Password you hashed: ')
+                                        f.write(PASSWORD)
+                                        f.write('\nYour Password Hash: ')
+                                        f.write(hash)
+
+
+                                    print('Password Info - ')
+                                    print('Your Password: ', PASSWORD)
+                                    print('Your Hashed Password:', hash)
+                                    print('Your Passwords are save in:', os.getcwd() + '\Passwordhash.txt')
+
+                                    return object.HackTools('Elvo.a')
+                                elif PASSHASH == '2':
+                                    break
+                                else:
+                                    print('try again')
+                                return PASSHASHER()
 
 
 
+                            if y:
+                                return object.HackTools('Elvo.a')
+
+
+                        # -------------Password Hasher-------------
+                        PASSHASHER()
+                        break
+
+                if x:
+                    print('\n-----ERROR-----')
+                    print("Check the Error above!.")
+                    print('Try a different password.')
+                    print('-----ERROR-----')
+
+                    PASSCHECKER()
+
+            PASSCHECKER()
+
+            # -----------------------Password Checker+Hasher-----------------------
+
+            # -----------------------Wifi SSIDs-----------------------
+        elif User_Choice == '4':
+
+            customwifissid = Figlet(font='bubble')
+            print(customwifissid.renderText("Welcome To Elvo\n "
+                                              "Wifi Info"))
+            def WIFISSID():
+
+                print('Would you like to see all the WiFi Names and password on your network?')
+                WIFIQU = input('''
+Yes [1]
+No  [2]
+No would take you to the Main Menu!     
+...:''')
+
+                if WIFIQU == '1':
+
+                    CMD = subprocess.run(["netsh", "wlan", "show", "profiles"], capture_output=True).stdout.decode()
+                    # .stdout.decode - shows all the wifi names in a table
+
+                    WIFINAMES = (re.findall("All User Profile     : (.*)\r", CMD))
+                    # finds all the "All user Profile" text in the CMD
+
+                    WIFILISTNAMES = []
+                    # creating an empty list for all the wifi usernames and password to be saved in
+
+                    if len(WIFINAMES) != 0:
+                        for name in WIFINAMES:
+                            WIFIPROFILE = {}
+                            # dictionary for each wifi profile
+
+                            PROFILEINFO = subprocess.run(["netsh", "wlan", "show", "profile", name],
+                                                         capture_output=True).stdout.decode()
+
+                            if re.search("Security key           : Absent", PROFILEINFO):
+                                continue
+                            else:
+                                WIFIPROFILE["ssid"] = name
+                                PROFILEINFOPASS = subprocess.run(["netsh", "wlan", "show", "profile", name, "key=clear"],
+                                                                 capture_output=True).stdout.decode()
+                                PASSWORD = re.search("Key Content            : (.*)\r", PROFILEINFOPASS)
+                                if PASSWORD == None:
+                                    WIFIPROFILE["password"] = None
+
+                                else:
+                                    WIFIPROFILE["password"] = PASSWORD[1]
+
+
+                                WIFILISTNAMES.append(WIFIPROFILE)
+
+                    for x in range(len(WIFILISTNAMES)):
+
+                        print('\n--------------------Wifi Network-----------------------')
+                        print(WIFILISTNAMES[x])
+
+                        print(f'--------------------------------------------------------')
+
+
+                    object.HackTools('Elvo.a')
+
+                elif WIFIQU == '2':
+                    return object.HackTools('Elvo.a')
+                else:
+                    return WIFISSID()
+            WIFISSID()
+
+            # -----------------------Wifi SSIDs-----------------------
 
         else:
-            print("\nNot an option :( , Try again...\n")
+            print("\n\n\n\nNot an option :( , Try again...")
             return object.HackTools('Elvo.a')
 
 
