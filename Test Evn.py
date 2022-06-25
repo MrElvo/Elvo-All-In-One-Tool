@@ -24,11 +24,11 @@ class AllinOne:
         print(('''
 Welcome to the Main Menu!
 
-    1.For Brute-Force Enter       [1]
-    2.For Fernet Encryption Enter [2]
-    3.For Shodan API              [3]
-    4.For NMAP                    [4]
-    5.For Sub-Domain Brute Force  [5]
+    1.For Brute-Force             [1]
+    2.For Fernet Encryption       [2]
+    3.For Password Checker+Hasher [3]
+    4.Wifi SSIDs                  [4]
+    
  '''))
         User_Choice = input("And your choice would be?\n...: ")
         print("You chose...: ", User_Choice)
@@ -46,8 +46,8 @@ Welcome to the Main Menu!
             def QUESTIONBRUTEFORCE():
                 custombruteforce = Figlet(font='bubble')
 
-                print(custombruteforce.renderText("Welcome To Elvo\n "
-                                                  "Encryptor"))
+                print(custombruteforce.renderText('''"Welcome To Elvo\n 
+                                                  Brute-Forcer'''))
 
                 BruteIntro = print('''How would you like to Brute Force?
 
@@ -212,8 +212,12 @@ Welcome to the Main Menu!
 
             def QUESTIONFERNET():
 
-                FERNETQUESTION = input("\nWhat woud you like to do?\n"
-                                       "To Encrypt[1]\nTo Decrypt[2]\nTo Main Menu[3]\n...:")
+                FERNETQUESTION = input('''What woud you like to do?"
+                                       
+   To Encrypt   [1]
+   To Decrypt   [2]
+   To Main Menu [3]
+   ...:''')
 
                 if FERNETQUESTION == '1':
                     # TODO: --------------Encryption--------------
@@ -223,7 +227,7 @@ Welcome to the Main Menu!
                         number = int(looptimes)
                         pass
                     except ValueError:
-                        print('\nThats not a number...\n')
+                        print('\nSomething is\'nt right... try again.\n')
                         return QUESTIONFERNET()
                     if number <= 0:
                         number = 1
@@ -266,7 +270,7 @@ Welcome to the Main Menu!
                             number = int(looptimes)
                             pass
                         except ValueError:
-                            print('\nThats not a number...\n')
+                            print('\nSomething is\'nt right... try again.\n')
                             return QUESTIONFERNET()
                         if number <= 0:
                             number = 1
@@ -310,7 +314,7 @@ Welcome to the Main Menu!
 
 
                 else:
-                    return print('NOT AN OPTION TRY AGAIN!'), QUESTIONFERNET()
+                    return print('\nNOT AN OPTION TRY AGAIN!\n'), QUESTIONFERNET()
 
             QUESTIONFERNET()
             # -----------------------Fernet-----------------------
