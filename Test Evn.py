@@ -24,7 +24,8 @@ import subprocess
 custom_fig = Figlet(font='5lineoblique')
 print(custom_fig.renderText("Welcome To Elvo All In One Tool"))
 
-
+custom_fig = Figlet(font='5lineoblique')
+print(custom_fig.renderText("Welcome To Elvo All In One Tool"))
 class AllinOne:
     def HackTools(Elvo):
         # custom_menu = Figlet(font='digital')
@@ -35,7 +36,11 @@ Welcome to the Main Menu!
     2.For Fernet Encryption       [2]
     3.For Password Checker+Hasher [3]
     4.Wifi SSIDs                  [4]
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> f0339f5a46dbeb47aed1d5fadaf1a83061ab1b4d
  '''))
         User_Choice = input("And your choice would be?\n...: ")
         print("You chose...: ", User_Choice)
@@ -182,6 +187,7 @@ Welcome to the Main Menu!
                     print("That's not one of the options... start again\n")
                     return QUESTIONBRUTEFORCE()
 
+
             QUESTIONBRUTEFORCE()
         # -----------------------Brute Force-----------------------
 
@@ -219,7 +225,11 @@ Welcome to the Main Menu!
             def QUESTIONFERNET():
 
                 FERNETQUESTION = input('''What woud you like to do?"
+<<<<<<< HEAD
 
+=======
+                                       
+>>>>>>> f0339f5a46dbeb47aed1d5fadaf1a83061ab1b4d
    To Encrypt   [1]
    To Decrypt   [2]
    To Main Menu [3]
