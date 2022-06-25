@@ -484,7 +484,7 @@ No would take you to the Main Menu!
                         print('\n--------------------Wifi Network-----------------------')
                         print(WIFILISTNAMES[x])
 
-                        print(f'--------------------------------------------------------')
+                        print(f'---------------------------------------------------------')
 
 
                     object.HackTools('Elvo.a')
