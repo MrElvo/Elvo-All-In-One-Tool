@@ -1,6 +1,7 @@
 # ----------Banner--------
 from pyfiglet import Figlet
-from termcolor import colored , cprint
+from termcolor import colored, cprint
+
 # http://www.figlet.org/examples.html - fonts
 # Text colors:
 #
@@ -50,45 +51,54 @@ import subprocess
 # -----------IMPORTS-------
 
 
-
 # TODO: -----------TODO-------
 '''
 - Add English only to the Password Checker Hasher
 - Add File with Passwords to hash
 -Error Check
 - Add colors to each menu
+- clear the terminal each time you choose something
 
 
 '''
+
+
 # TODO: -----------TODO-------
 
+class Wipe(object):
+    def __repr__(self):
+        return '\n' * 10000
 
+
+wipe = Wipe()
 
 custom_fig = Figlet(font='block')
-print(colored(custom_fig.renderText("Welcome To Elvo All In One Tool"),'cyan'))
+print(colored(custom_fig.renderText("Welcome To Kika All In One"), 'cyan'))
 
 
 class AllinOne:
     def HackTools(Elvo):
         # custom_menu = Figlet(font='digital')
-        print(colored('Welcome to the Main Menu!','magenta',attrs=['reverse', 'blink']))
+        print(colored('Welcome to the Main Menu!', 'blue', attrs=['bold']))
         print(('''
  | For | Brute-Force >             [1]
- | For | Fernet Encryption >       [2]
+ | For | Kika Encryption >         [2]
  | For | Password Checker+Hasher > [3]
  | For | Wifi Intelligence >       [4]
 
  '''))
         User_Choice = input("And your choice would be?\n...: ")
+        print(wipe)
         print("You chose...: ", User_Choice)
 
         # -----------------------Brute Force-----------------------
         if User_Choice == '1':
+            print(wipe)
+
             def QUESTIONBRUTEFORCE():
                 custombruteforce = Figlet(font='bubble')
-
-                print(custombruteforce.renderText('''"Welcome To Elvo\n 
-                                                  Brute-Forcer'''))
+                print(custombruteforce.renderText('''"Welcome To Elvo
+Brute-Forcer'''))
 
                 BruteIntro = print('''How would you like to Brute Force?
 
@@ -99,10 +109,11 @@ To Main Menu >             [4]
 ...:''')
 
                 BruteChoice = input(str("And your choice would be?\n...: "))
+                print(wipe)
                 print("You chose...: ", BruteChoice)
 
                 if BruteChoice == "1":
-
+                    print(wipe)
                     url = input('Place the URL: ')
                     username = input('Place the username: ')
 
@@ -126,9 +137,10 @@ To Main Menu >             [4]
                             file.close()
                             return tries
                         except FileNotFoundError:
-                            return print(colored('\nsomething is incorrect :( Try again :)\n','red')), QUESTIONBRUTEFORCE()
+                            print(wipe)
+                            return print(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red')), QUESTIONBRUTEFORCE()
 
-                    def main(tries):
+                    def BRUTEWOOF(tries):
                         for passwd in tries:
                             r = send_request(username, passwd)
 
@@ -139,9 +151,10 @@ To Main Menu >             [4]
                                 break
 
                     tries = implist()
-                    main(tries)
+                    BRUTEWOOF(tries)
 
                 elif BruteChoice == "2":
+                    print(wipe)
 
                     url = input('Place the URL: ')
                     username = input('Place the username: ')
@@ -157,7 +170,7 @@ To Main Menu >             [4]
                             r = requests.get(url, data=data)
                             return r
 
-                        def main():
+                        def BRUTEWOOF():
                             while True:
                                 rndpasswd = random.choices(chars, k=2)
                                 # k= is the password length.
@@ -171,12 +184,14 @@ To Main Menu >             [4]
                                     print(f"Correct Password | {passwd} | !\n")
                                     break
 
-                        main()
+                        BRUTEWOOF()
                     except requests.exceptions.MissingSchema:
-                        return cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold'])),QUESTIONBRUTEFORCE()
+                        print(wipe)
+                        return cprint(
+                            colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold'])), QUESTIONBRUTEFORCE()
 
                 elif BruteChoice == "3":
-
+                    print(wipe)
                     url = input('Place the URL: ')
                     username = input('Place the username: ')
                     chars = input('Write the characters to use')
@@ -191,7 +206,7 @@ To Main Menu >             [4]
                             r = requests.get(url, data=data)
                             return r
 
-                        def main():
+                        def BRUTEWOOF():
                             while True:
                                 rndpasswd = random.choices(chars, k=2)
                                 # k= is the password length.
@@ -205,16 +220,20 @@ To Main Menu >             [4]
                                     print(f"Correct Password | {passwd} | !\n")
                                     break
 
-                        main()
+                        BRUTEWOOF()
                     except requests.exceptions.MissingSchema:
-                        return cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold'])), QUESTIONBRUTEFORCE()
+                        print(wipe)
+                        return cprint(
+                            colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold'])), QUESTIONBRUTEFORCE()
 
                 elif BruteChoice == '4':
-                    print(colored('\n>>>Back To the Main Menu>>>','blue'))
+                    print(wipe)
+                    print(colored('\n>>>Back To the Main Menu>>>', 'blue'))
                     return object.HackTools('Elvo.a')
 
                 else:
-                    print(colored('\nThat\'s not an option.. try again...\n','red'))
+                    print(wipe)
+                    cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                     return QUESTIONBRUTEFORCE()
 
             QUESTIONBRUTEFORCE()
@@ -261,6 +280,7 @@ To Main Menu > [3]
 ...:''')
 
                 if FERNETQUESTION == '1':
+                    print(wipe)
                     # --------------Encryption--------------
                     folderpath = input('Place the Folder Path...: ')
                     looptimes = input('How many times to run...: ')
@@ -268,7 +288,7 @@ To Main Menu > [3]
                         number = int(looptimes)
                         pass
                     except ValueError:
-                        cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                        cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                         return QUESTIONFERNET()
                     if number <= 0:
                         number = 1
@@ -295,12 +315,12 @@ To Main Menu > [3]
 
                             with open(input_file, 'wb') as f:
                                 f.write(encrypted)  # Write the encrypted bytes to the output file
-
+                            print(wipe)
                             print(
                                 f'File Name...:{file}\nFile Number...:{counter}Looptime...:{times}\nBase64...:{base64encoding}\nSHA256...: {SHA256encoding}\n\n --------next file--------\n')
 
                 elif FERNETQUESTION == '2':
-
+                    print(wipe)
                     #  ------------------DECRYPTION--------------------
 
                     Question = input("Are you sure? Yes/No...: ").capitalize()
@@ -311,7 +331,7 @@ To Main Menu > [3]
                             number = int(looptimes)
                             pass
                         except ValueError:
-                            cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                            cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                             return QUESTIONFERNET()
                         if number <= 0:
                             number = 1
@@ -343,20 +363,24 @@ To Main Menu > [3]
 
 
                                 except InvalidToken as e:
-                                    print(colored("No more files to decrypt :)",'green'))
+                                    print(wipe)
+                                    print(colored("WOOF:No more files to decrypt", 'green'))
 
 
                     else:
-                        print(colored("That's not one of the options...\n",'yellow'))
+                        print(wipe)
+                        print(colored("WOOF WOOF...\n", 'yellow'))
                         return QUESTIONFERNET()
 
                 elif FERNETQUESTION == '3':
-                    print(colored('\n>>>Back To the Main Menu>>>','blue'))
+                    print(wipe)
+                    print(colored('\n>>>Back To the Main Menu>>>', 'blue'))
                     return object.HackTools('Elvo.a')
 
 
                 else:
-                    cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                    print(wipe)
+                    cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                     return QUESTIONFERNET()
 
             QUESTIONFERNET()
@@ -364,6 +388,7 @@ To Main Menu > [3]
 
             # -----------------------Password Checker+Hasher-----------------------
         elif User_Choice == '3':
+            print(wipe)
             customcheckerhasher = Figlet(font='bubble')
 
             print(customcheckerhasher.renderText('''Welcome To Elvo\nPassword Checker \nand Hasher'''))
@@ -386,22 +411,23 @@ Test and Hash > [1]
 Main Menu >     [2]
 ...:''')
                 if PASSWORDQ == '1':
+                    print(wipe)
                     PASSWORD = input('Check Your Password...:')
                     x = True
                     while x:
                         if (len(PASSWORD) < 6 or len(PASSWORD) > 100):
                             print("\nPassword length between 6 and 12 please")
                             break
-                        elif not re.search("[a-z]", PASSWORD):
+                        elif not re.search("[abcdefghijklmnopqrstuvwx]", PASSWORD):
                             print("\nYou need at least one lower case letter")
                             break
-                        elif not re.search("[0-9]", PASSWORD):
+                        elif not re.search("[0123456789]", PASSWORD):
                             print("\nYou need at least one number")
                             break
-                        elif not re.search("[A-Z]", PASSWORD):
+                        elif not re.search("[ABCDEFGHIJKLMNOPQRSTUVWX]", PASSWORD):
                             print("\nYou need at least one upper case character")
                             break
-                        elif not re.search("[!@#$%^&*]", PASSWORD):
+                        elif not re.search("[!@#$%]", PASSWORD):
                             print("\nYou need at least one special character please")
                             break
                         elif re.search("\s", PASSWORD):
@@ -409,7 +435,7 @@ Main Menu >     [2]
                             break
 
                         else:
-                            print(colored("Your Password is strong enough",'red'))
+                            print(colored("Your Password is strong enough", 'red'))
                             x = False
 
                             # -------------Password Hasher-------------
@@ -423,6 +449,7 @@ Main Menu  >          [2]
                                 y = True
                                 while y:
                                     if PASSHASH == '1':
+                                        print(wipe)
                                         y = False
                                         PWDHASH = PASSHASH
                                         bytePWDHASH = PWDHASH.encode('utf-8')
@@ -436,6 +463,7 @@ Main Menu  >          [2]
                                             f.write('\nYour Password Hash: ')
                                             f.write(hash)
 
+                                        print(wipe)
                                         print('Password Info - ')
                                         print('Your Password: ', PASSWORD)
                                         print('Your Hashed Password:', hash)
@@ -446,11 +474,13 @@ Main Menu  >          [2]
                                     elif PASSHASH == '2':
                                         break
                                     else:
-                                        cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                                        print(wipe)
+                                        cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                                     return PASSHASHER()
 
                                 if y:
-                                    print(colored('\n>>>Back To the Main Menu>>>','blue'))
+                                    print(wipe)
+                                    print(colored('\n>>>Back To the Main Menu>>>', 'blue'))
                                     return object.HackTools('Elvo.a')
 
                             # -------------Password Hasher-------------
@@ -458,21 +488,23 @@ Main Menu  >          [2]
                             break
 
                     if x:
+                        print(wipe)
                         cprint(colored('''\n
 -----ERROR-----
 Check the Error above!
 Try a different password
 -----ERROR-----
-\n''','red' , attrs=['bold']))
+\n''', 'red', attrs=['bold']))
 
                         PASSCHECKER()
-                elif PASSWORDQ =='2':
-                    print(colored('\n>>>Back To the Main Menu>>>','blue'))
+                elif PASSWORDQ == '2':
+                    print(wipe)
+                    print(colored('\n>>>Back To the Main Menu>>>', 'blue'))
                     object.HackTools('Elvo.a')
                 else:
-                    cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                    print(wipe)
+                    cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                     PASSCHECKER()
-
 
             PASSCHECKER()
 
@@ -480,6 +512,7 @@ Try a different password
 
             # -----------------------Wifi SSIDs-----------------------
         elif User_Choice == '4':
+            print(wipe)
 
             customwifissid = Figlet(font='bubble')
             print(customwifissid.renderText("Welcome To Elvo\n "
@@ -488,18 +521,21 @@ Try a different password
             def WIFISSID():
                 print('Known Networks OR Available Networks?')
                 WIFINETAVA = input('''
-Knows Networks >     [1]
+Known Networks >     [1]
 Available Networks > [2]
 Main Menu >          [3]                
 ...:''')
                 if WIFINETAVA == '1':
+                    print(wipe)
 
-                    print('All Known Networks OR Main Menu')
+                    print('All Known Networks OR Connect OR Main Menu')
                     WIFIQU = input('''
-All Knows Networks >    [1]
-Main Menu >             [2] 
+All Known Networks >         [1]
+Connect To A Known network > [2]
+Main Menu >                  [3] 
 ...:''')
                     if WIFIQU == '1':
+                        print(wipe)
 
                         CMD = subprocess.run(["netsh", "wlan", "show", "profiles"], capture_output=True).stdout.decode()
                         # .stdout.decode - shows all the wifi names in a table
@@ -542,6 +578,7 @@ Main Menu >              [2]
 
 ...:''')
                                         if WIFICON == '1':
+                                            print(wipe)
                                             print('\n-----KNOWN NETWORKS-----')
                                             for i in enumerate(WIFINAMES[:]):
                                                 print(*i)
@@ -557,20 +594,27 @@ Main Menu >              [2]
                                                     try:
                                                         WIFINETWORK = int(input('...: '))
                                                         valid = True  # if this point is reached, x is a valid int
-                                                        WIFINETCON = subprocess.run(["netsh", "wlan", "connect",f"ssid={WIFINAMES[WIFINETWORK]}",f"name={WIFINAMES[WIFINETWORK]}"])
+                                                        WIFINETCON = subprocess.run(["netsh", "wlan", "connect",
+                                                                                     f"ssid={WIFINAMES[WIFINETWORK]}",
+                                                                                     f"name={WIFINAMES[WIFINETWORK]}"])
                                                         WIFINETCON
                                                         object.HackTools('Elvo.a')
                                                     except ValueError:
                                                         print('That\'s not one of the Networks... try again..')
-                                                        cprint(colored('Choose one of the Networks above. NUMBERS ONLY!','red', attrs=['bold']))
+                                                        cprint(
+                                                            colored('Choose one of the Networks above. NUMBERS ONLY!',
+                                                                    'red', attrs=['bold']))
                                                         WIFINET()
+
                                             WIFINET()
 
+
                                         elif WIFICON == '2':
+                                            print(wipe)
                                             print('\nAs you wish')
                                             object.HackTools('Elvo.a')
                                         else:
-                                            cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                                            cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                                             WIFICONNECTION()
                                         # -----------------------Wifi Known Network connector-----------------------
 
@@ -582,23 +626,66 @@ Main Menu >              [2]
 
                     # -----------------------Wifi Available Network-----------------------
                     elif WIFIQU == '2':
-                        print(colored('\n>>>Back To the Main Menu>>>','blue'))
+                        print(wipe)
+                        CMD = subprocess.run(["netsh", "wlan", "show", "profiles"], capture_output=True).stdout.decode()
+                        # .stdout.decode - shows all the wifi names in a table
+
+                        WIFINAMES = (re.findall("All User Profile     : (.*)\r", CMD))
+                        # finds all the "All user Profile" text in the CMD
+                        print('\n-----KNOWN NETWORKS-----')
+                        for i in enumerate(WIFINAMES[:]):
+                            print(*i)
+                            for n in range(0):
+                                print(n)
+                        print('\n-----KNOWN NETWORKS-----')
+                        # -----------------------Wifi Known Network connector-----------------------
+                        print('Choose your Network.')
+
+                        def WIFINET():
+                            valid = False
+                            while not valid:  # loop until the user enters a valid int
+                                try:
+                                    WIFINETWORK = int(input('...: '))
+                                    print('\n')
+                                    valid = True  # if this point is reached, x is a valid int
+                                    WIFINETCON = subprocess.run(
+                                        ["netsh", "wlan", "connect", f"ssid={WIFINAMES[WIFINETWORK]}",
+                                         f"name={WIFINAMES[WIFINETWORK]}"])
+                                    print('\n\n')
+                                    WIFINETCON
+                                    object.HackTools('Elvo.a')
+                                except ValueError:
+                                    print(wipe)
+                                    cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
+                                    cprint(colored('Choose one of the Networks above. NUMBERS ONLY!', 'red',
+                                                   attrs=['bold']))
+                                    WIFINET()
+
+                        WIFINET()
+
+                    elif WIFIQU == '3':
+                        print(wipe)
+                        print(colored('\n>>>Back To the Main Menu>>>', 'blue'))
                         return object.HackTools('Elvo.a')
                     else:
-                        cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                        print(wipe)
+                        cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                         return WIFISSID()
 
                 elif WIFINETAVA == '2':
+                    print(wipe)
                     AVACMD = subprocess.run(["netsh", "wlan", "show", "networks"], capture_output=True).stdout.decode()
                     print(AVACMD)
-                    print(colored('\n>>>Back To the Main Menu>>>','blue'))
+                    print(colored('\n>>>Back To the Main Menu>>>', 'blue'))
                     object.HackTools('Elvo.a')
                 elif WIFINETAVA == '3':
-                    print(colored('\n>>>Back To the Main Menu>>>','blue'))
+                    print(wipe)
+                    print(colored('\n>>>Back To the Main Menu>>>', 'blue'))
                     object.HackTools('Elvo.a')
 
                 else:
-                    cprint(colored('\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+                    print(wipe)
+                    cprint(colored('\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
                     WIFISSID()
 
                     # -----------------------Wifi Available Network-----------------------
@@ -606,8 +693,137 @@ Main Menu >              [2]
             WIFISSID()
             # -----------------------Wifi SSIDs-----------------------
 
+        # -----------------------About Kika----------------------
+        if User_Choice == '0':
+            print(wipe)
+            print('''
+            Welcome to the hidden part of my code.
+            If you made it here it means that you may have done something right :).
+            About Kika:
+            Kika was adopted on 27.1.2012 from a dog shelter.
+            She is:
+            ⅓ - Pinscher
+            ⅓ - Chihuahua 
+            ⅓ - Pekingese
+            She has beautiful life, she like to run, jump, play and eat your food.
+            She also likes to sit on high places(just like cat) and go for walks.
+            She is a beautiful and funny dog that you can always play with.
+            And also she was very nice to people and a bit jealous too 
+            But at the age of 11 she was diagnosed with cognitive syndrome.
+            Which makes her forget things.
+            So far the doctor is giving her pills that would hopefully help her.
+            But if that would not help her with might have to put her down :'( :'( :'(
+            Because we don't want her to suffer or be in pain.
+            So? how is it related to this All-In-One tool?
+            The answer is quite simple.
+            Kika is my dog, which means that her memory is being lost slowly (because of the cognitive syndrome)
+            so for here honor, maybe she is forgetting but this tool is for HER! this tool would not be forgotten!
+            I'll keep adding notes here. 
+
+
+            Kika:
+                           .^^:::.                                                                             
+                          :P#&&&&##G?!.                                                               .         
+                          G&&&&&&&&&&##BP!::                                                ..^7?5PPGB#B#BB5?.  
+                          G&&&&&&&&&&#B#&&##GP~                                     .: .~YYGB#&&&&&&&&&&&&&&&#~ 
+                          ?@&&&&&&&&&&#GPB###&&G?.                                 7BBB###BB#&&&&&###&&&&&&&&5  
+                          ^&@&&&##BBB##&#GGB###&#G7:                    :....:.  ~B&####BB#&###&##BBB#&&&&&&G   
+                          5@@@&##B5YYYJ55555G##&#BBPGJ:           :?JJJY5555PGPJ5&&&&&&##BBBPP55Y55PGB&&&&&P.   
+                        :5&&&&#G5JJJ?7??7?YY5G#&&##BBBBGGPP5Y?J?7YPPPGGGGGBGBBBB##&&&&&&&#G5J??77?JYPGB&@@&5    
+                      .JYGBGGP5YJJYJ??JY5PGGBB##&&###BBB#BBBGGGBBBBBGGGGGBGGGGGBBBB##&&&&BPPPPGPP5??Y5P#&&G.    
+                     :^JG&#BGP5YY555PGBBB####&########BBBBBBBGGGGGB#BBBGGGGGGGGGGBB##&&&&&&&###B##P?J7J5PG!     
+                         ^P&&#GGGBB###&&&&&&&&&#######BBBBBGBBBGGGBB#BBGGGGGGGGGGGBB##&&&&&&&#GPPPGYPG5Y!.      
+                        :~5#&&#B#######&&&&&&&&&&&&###BBBBBBBBBBBGBBBBBBBGGBGGGGGGGB##&&&&&&&&###BBBBP!.        
+                        .JYYB&#####&&&&&&&&&&&&&&&&#####B###BBBBBBBBBBBBBBBBBBBBGGGG##&&&&&&&&&&&#BBB?          
+                         !B###&&&##&&&&&&&&&&&&&&&&&&#############BB##########BBBBBGB###&&&&&&&&#BBBBY.         
+                         .5BB#####&&&&&&&&&&&&&&&&&&&######&&&&&#######&#########BBBBB##&&&&&&&&&#BBBG?         
+                          ?BB#&&&&&&&&&&&&&&&&&&&&&&&##B##GGB#&&&&&&&&&&&&&&&&#G55PGGBB##&&####&&&#BP^          
+                          :#&&&&&&&&&&&&&&&&&&&&&&&#BGPP5?777?Y#@&&&&&&&@&&&&G?!!!7?5PGB#&&&###&&&&#B^          
+                         J#&&@&&&&&&&&&&&&&&&&&&&#BP5YYY?~^~!7!7#@@@@@@@@@@&P7!!~~?PBBBBB&&&##&&&&&&B           
+                         :J5&@@@@@@@@@@@&@&&&&&&####&&&##GJ7?7!!5@@@@@@@@@@&5!!!~JPB#####&&&&&@@&&&&?           
+                            ~#@@@@@@@@@@@@@&&&&&&&&&##G5G&#5YJ7?B@@@@@@@@@@&P!!?G#P5JG&#&&&##&&@&&&&#J          
+                              J&@@@@@@@@@@&&&&&&G#G####&##&#G5YP&@@@@&@&&&@&#G5G##&B##5J##&###&&&&&&@&5~        
+                              :@@@@@@@@@@@@&&&&#GYGB&#&&&&###B#&@@@&&&&&&&&&&&BGPBGB#PJP##&##&&&&&&&&&&#~       
+                            7G#@@@@@@@@@&&##&&&&&G5PB#########&@&&&&&&&&&&&&&##BBBBPYYG######&@&&&&&&&&&!       
+                            .#&&@@@@@@@BYJ?B&&&&&&#BGPGBBBB#&&&&&&##&#####&&#BB#BBG5GB#&#YJ5G@@&&&&&&&#:        
+                             ~##&&@@@@@#?!?#&&&&&&@@&&#B5G#&&#BGGPGB######BBPYY5GP5GB#&&5~!Y&@&&&&&&#B#7        
+                              .P@@@@@@@@BYG&&&&@@&##BBG55B#BP5YJYYPBBB#&&BBGY?777J!??B&G!~P@@@@@@&&&&&#B5?77.   
+                               .&@@@@&@@@&&&&&&&&BJ?7!!!7PPYJ?J??J55PGG#&#G5J7!!!!~:^5GYP&@@@@@@@&#####7        
+                                 P@@&&&@@@@&&&BGPY7!~^^~!?JJ?7??7JPB#BGP55555Y7~~~~^^5#&@@&@@@@@@&#BP7~         
+                               .7Y#@&&@@&&#BBG5YJ777!~~~!J?!!~^~!P&&&&&#55B&#B5^^^^~JGP5PGB&&&@@@@&B.           
+                                5@@@@@@@&BGPP5J?77!777!!?J~^^^^^~Y#&&@@&BB&@&&P^:..:J5555B##&@@@@@&B            
+                              .P@@@@@&&&&#BB55Y?7777?7!?J?!^::^~7J5B#BBB##GGB5?~:..:5BBG#&@@&@@@@&&#.           
+                              ~B&@@@@@@@@@&#BGBPYJ??J?77?J?!~^^^!JYPB&&&&&&#5?7~:.:7GPG&@@@@@@@@@@&P            
+                               !&&@@@@@@@@@&BGGBG555YJ?7J5YJY5PG5YY555PPPPJJ7!7!!?YBB#B&@@@@@@@@#5J:            
+                                J@@@@@&@@@@@&BBBP5555YYJYJ?J5P#&&#####BBGG5J5G?7P###&@#@@@@@@B~:                
+                                ^5@@@@@@@@@@@&GGPP555555YJJJ?!75PPPPB#&#&&BP5J^G&&&&@@@@@@@@J                   
+                                .#@@@@@@@@@@@@#GP55555PP55555Y777!~!7?Y7JJ!~!75&&&&@@@@@@@G.                    
+                                :&@@@@@@@@@@&#BGPPPPP5PPGGGGP55YJ??77?JJ?7?5G&&##&@@@@@@@&.                     
+                                #@@@@@@@@@@&&GPGGP5Y5PP5555555YYY55P55PPPPGGG&&&&@@@@@@@&?                      
+                                #@@@@@@@@@@&&##&@@&BYJYYYYYYYYY???J?JJYYY5GBBB##@@@@@@@@@^                      
+                               7@@@@&&@@@@@@@@&@@@@@#BP5PYJY555YJJ??JJJY5PB###&@@@@@@@@&J                       
+                               ~@@@@@@@@@@@@@@&&@@@&#GB##J?P#GPP5YYYY5Y5PG&@&@@@@@@@@@@@:                       
+                                5@@@@@@@@@@@@@@@@@@@#BPBB575&#GBB5555PPB&@@@@@@@@@@@@@@&.                       
+                               .5@@@@@@@@@@@@@@@@@@@&#GPGBG5P#&&&#BB#&&@@@@@@@@@@@@@@@@~                        
+                              .?@@@@@@@@@@@@@@@@@@&@@&#BGGB&&#G#@&##&@@@@@@@@@@@@@@@@@&^                        
+                             7@&@@@@@@@@@@@@@@@@@@@@@@&&###&&&&@@@@@@@@@@@@@@@@@@@@@&&7                         
+                             J@@@@@@@@@@@@@@@@@@@@@&@@@&&&&&&@@@@@@@@@@@@@@@@@@@@@@@&J
+                             Woof                                                wooF
+                                Woof                                          wooF
+                                    WOOF                                  WOOF
+
+
+
+
+
+
+            ''')
+            print(wipe)
+            print('''
+                                          :!!!!77!~~~^^~!~^......:::...                              
+                                        .J55PPPPPPP55PGGGGGPPPPPP55555YJ!^                          
+                                     .~JGBGGGGPPPGPPGGGGGBBBBGGGGGPPPPPPP5Y~                        
+                                 .~?PB##BBGGGPPGGPPGGGGGGBBGGBBGGGGGGGGPP555Y!.   .:.^?7?Y5PYYJ5?!~.
+ .~?5#BBBGBGP5Y?!^!PJ:         :YB####BBBBBBGGBGBBBB####BBGBGGGGGGGGGGGGPPGGGBGPG#&&&&&&@@@@@@@@@@@&
+5&@@@&@@@@@@@@&&&&&&&#Y.^:   :YB#####BBBBBBBBB##B######BBGGBGGPPPPPPPGGGG#&&&##&&&&&&&&@@@@@@@@@@&&&
+@@&&&&&&@@@@@@@@@&&&&#&&GB5!?BB####BBBBGGGGBBBBGGGGBGPPPPPPPPPPPPPPPPGBB#&&&&&###BB#&&&&##&&&&&@@@@&
+5@@&&&&@@&&&&&&&###&&&##&&&&#B##&&&#GGGGGBGBBGPPGGGGGGGGBBBBBBBB##BGGGB&&&@&&&&&#BBBB######B&&&&&@@@
+ Y@@@@@@&#B####BB########&@@&&@@&#BBB#########BBBBB##BBGBBBBBBBBB#BBBB#&&&@&&@&&&#G5YY5PPGGGB&@@@@B~
+  ^#@@@&&#GGGPPPPPPPGB##&&@@@&&&#####################&&###BBB##BBBBBBB#&&&&@@@&&#GP55PGGGPY55#&@@7  
+    .7##BBGGP5555Y5PPGGB##&&@&&&&&&&####&###B#######&&&&##BB#BBBBBBB##B###&&@@@&#####&&&&#P?7YP5:   
+      .7YB#BP55PGB##&&&&&&&@@&&&&&&&##&#############&&######BBBBGBBGBBB#B##&&@@@&&########B577^     
+       ^JYG###&&&&&&&&&@&&@@&&&&&&&&&&&&######&######&######B##BBGBGGBBBB##&&&&@&&&##&&&#BP.        
+           7#&&&&&&&&@&&@@@@&&&&&#&&####&&##&#&##BB###&&&#&&&####BGBGGB####&&&&&&&##&&#BG7.         
+            YBB###&&@&&@@@@&&&&&&##&&###&&&&&&&&####&&&&&&&&&&&&&#GGGB###&&#&&&&&&&&&#BBG.          
+           !5B##&&&@@&@@@@&&&&&&&&&&###&@@@@&&&&&&#&&&&&&&&&&&&@@&&BGGB#&&&&&&&&&&&&&@@@Y           
+           ~5G##&@@@@@@@@@@@@@@&&&&##&&&#&&@@@&&@@&&@@@@@&&&@@@&#BB##GGGB#&&&&&&&&&&&@&J.           
+            B&&@@@@@@@@@@@@&&&&&&#####GYJ?JYG&@@@@@@@@@@@@@@&#PJ???5PPPPPB&&&&&@@@@&@J.             
+           .7~JG&@@@@@@@@@@@&&&#BPP55YJ7!!7775&@@@@@@@@@@@@@BY77!!7J5PGGPG&&&&&&@&&#7               
+                 .~P@@@@@@@@@@#BBGGGGGG5J?????G@@@@@@@@@@@@&PJ??7!JBBGGPGB&&&##B&&&#.               
+                    Y@&@@&&&@@&&&#&&B&&@&5JJJ?P&@@@@@@@@@@@&P????P&&&GG&#B&###G?GB#&!               
+                     G&@@&&@&&&##B#&#&&&@&P5YPB&@@@@@@@@@@@@#P5GB#&#&&##PJGBBG?G&#B#P               
+                    YBBB#&&&&&&P5GB#&&&&&#&###&@@@&@@@&@@&@@@&###B&#BG5YJPBBBBPPG#&#B7              
+                   JG5PGB55&&&&&G5PGB###&&&&&&@@&&&&&&&&&&&&&&&&##BG55YJP#&&#GP5YYPB##5             
+                   ?J5GGBBG&&&&&&#GPGBB####&@@@&&&&&&#&&&@&&&&@&#B##BBB#@@&#GGPYYJYJ5B:             
+                  !Y55PGBB#&@@&&&&&&&###B#&@&&#########&&&##B##&&##GGP#@&GPP555555JJJY~             
+                 7JJYY5GBBB#&@@@@&##B###&&&#BGGGBB##&&#&&##BGPPPG#PJ?Y#&5YYYY555YJ?JYJJ7^           
+                .YJJY5PGGGGG#&@@&5777JYP#BPP555PB###&&&&##BG5YYYYYP5YPB5YYYJJJYYJYJYPP?7?7~         
+                 ?JJY5PP555PG#&@@G!^~!!J5YYYYY5PGB#B#&@#BBGPYJJJJJ5GB#P???J????JYJJJ55J?5P5.        
+                 ~JYYP5P55555BBG#@G!!!!?YJJJJYYPBB#BBGBBBBGP5JJJ?J5G#&P77?J??JYJP5YYJ5PPJYY         
+                 7YY55YYYYY55PG#&@@G?7??77!!7?P#####BPPB##BBBY777?J5&@B7!~?Y5PPPPYJ!7?P#BG5.        
+                .JY55YYYJJY55Y5G&@@@57?!~^~~7?P#&@@@&##@@@@@&57!!!?B@@B!!PGGPPGG!~!77?YBBPJ:        
+                !JJJY55YYYPP5JJ5B@@@&G57.     ~P#&&GBGYB&##PYPJ?7JG&@@B55&&BYG#57YG??JJJG^          
+               .JY5YJJYJJJY5YJ?J5&@@&&&?         ^!  . .^    ^~^!?7^::^..7B5PBB#BB&GBBGJ^           
+               ^7^:Y557?!5?~??75YB&@YJY^                                  ^J5PB&&&@&&B~             
+                   ~J: .:^.?YJYGPGB#7                                         .^^#&!.  
+
+            ''')
+            cprint(colored('Could be an Error nor a Secret all you need to is to look >>>\n', 'red', attrs=['bold']))
+            object.HackTools('Elvo.a')
+        # -----------------------About Kika----------------------
+
         else:
-            cprint(colored('\n\n\n\nsomething is incorrect :( Try again :)\n','red', attrs=['bold']))
+            cprint(colored('\n\n\n\nWOOF WOOF WOOF! , Try Again.\n', 'red', attrs=['bold']))
             return object.HackTools('Elvo.a')
 
 
