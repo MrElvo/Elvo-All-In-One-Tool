@@ -264,22 +264,22 @@ Something Isn't right
                 file.write(key)
                 file.close()
 
-            password_provided = "password"  # This is input in the form of a string
+            password_provided = "The Password That Is Being UseD HerE iS Kika"  # This is input in the form of a string
             password = password_provided.encode()  # Convert to type bytes
-            salt = b'\n\x8dl\xfb&\x92\x86\xa6\x9e\xfb!\xec\xeb\x02\xcc\xee'
+            salt = b'in7\xf9\xdc\xe1\xf9$\xda\x0c\x1b\xffT\x12QZ\x07\\\\\x0e\xc6\xeb\xe4\xec\x80\xfa\xc70 \xa4\x17`\xe6[\xb5R\xe5E\xcdm\xa3\xadf\xaf\x19\xc6\xa1\x14=\x80E\x1b\xfd\xd9\x84\x00Bk:\x03\xb3\xd3\x9d\xf5m\xf7\xa5\xb5\xd8\x8b\x17\x1b\xfa\xb6f\x04\x9c?\xc9R\xab\x0c\xcd\xac\x04=\xb0\xbeRl|\x9cY$\xd2\xbc\xc6|\xbbe{8:\x94\x0f\x0b\x1b\xf1\xb82l\xb8B\xf7ri8t*\xe6\xa5\x9f\xcc\xb2\xa9OW\'K\xcb\x9f\x9f\x12\xab\xb5\xde:\xf8\xb7X67\xf90\x10\xb6_\xec\'\x1a2\xea\x1a\xc7\xef\xbc\xce\xd7\xb5\x8d\xfe5\xf9\xd8\x94O1\xfb\x10\xb0\xae\xbcK\x05f\xd3/\xea\xf9\xeb=\x99]\xc9 K\x07\x1bD(\xbbj/\xe9,\x977"#\xfa`\xb4\x83\x17\xc1\xff\xa3\x9a\x11\xf1;^\xba\xf6/\xe3\x8b\x9eAy\xb31\xed<\x92\xf3\xb9\xea}Z\x16\xb9R\xd3\xbb\x03\x17w\xe6\x00\xb7\x83\xa9\x0e\xb4\x9a\x101\x17\xd4;\xd0\xf7l\r\t'
             # CHANGE THIS - recommend using a key from os.urandom(16), must be of type bytes
             kdf = PBKDF2HMAC(
                 algorithm=hashes.SHA256(),
-                length=32,
+                length=64,
                 salt=salt,
-                iterations=100000,
+                iterations=400000,
                 backend=default_backend()
             )
             key = base64.urlsafe_b64encode(kdf.derive(password))  # Can only use kdf once
 
             def QUESTIONFERNET():
 
-                FERNETQUESTION = input('''What woud you like to do?"
+                FERNETQUESTION = input('''What woud you like to do?
 
 To Encrypt   [1]
 To Decrypt   [2]
@@ -589,7 +589,8 @@ Something Isn't right
 Known Networks OR Available Networks?
 Known Networks >     [1]
 Available Networks > [2]
-Main Menu >          [3]                
+Connect Manually >   [3]
+Main Menu >          [4]                
 ...:''')
                 if WIFINETAVA == '1':
                     print(wipe)
@@ -598,7 +599,8 @@ Main Menu >          [3]
                     WIFIQU = input('''
 All Known Networks >         [1]
 Connect To A Known network > [2]
-Main Menu >                  [3] 
+Connect Manually             [3]
+Main Menu >                  [4] 
 ...:''')
                     if WIFIQU == '1':
                         print(wipe)
@@ -733,10 +735,12 @@ Something Isn't right
 
                         WIFINET()
 
+
                     elif WIFIQU == '3':
                         print(wipe)
                         print('\n>>>Back To the Main Menu>>>\n')
                         return object.HackTools('Elvo.a')
+
                     else:
                         print(wipe)
                         print('''
@@ -751,7 +755,23 @@ Something Isn't right
                     print(AVACMD)
                     print('\n>>>Back To the Main Menu>>>\n')
                     object.HackTools('Elvo.a')
+
+                # elif WIFINETAVA == '3':
+                #     WIFINAMEMAN = input('Network Name...: ')
+                #     WIFIPASSMAN = input('Network Pass...: ')
+                #
+                #     CMD = subprocess.run(
+                #         ["netsh", "wlan", "set", "hostednetwork", "mode=allow", f"ssid={WIFINAMEMAN}",
+                #          f"key={WIFIPASSMAN}"], capture_output=True).stdout.decode()
+                #     CONNECTCMD = subprocess.run(
+                #         ["netsh", "wlan", "connect", f"ssid={WIFINAMEMAN}",
+                #          f"name={WIFINAMEMAN}"])
+                #     print('Connecting... \n', CMD, CONNECTCMD)
+
                 elif WIFINETAVA == '3':
+                    print('')
+
+                elif WIFINETAVA == '4':
                     print(wipe)
                     print('\n>>>Back To the Main Menu>>>\n')
                     object.HackTools('Elvo.a')
