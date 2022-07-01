@@ -45,6 +45,7 @@ import random
 # -----------Check+Hasher imports-------
 import re
 import bcrypt
+from pathlib import Path
 # -----------Wifi SSIDs imports-------
 import subprocess
 
@@ -461,7 +462,8 @@ you can also hash it.
 
                 PASSWORDQ = input('''Test and Hash OR Main Menu? 
 Test and Hash > [1]
-Main Menu >     [2]
+Hash A File >   [2]
+Main Menu >     [3]
 ...:''')
                 if PASSWORDQ == '1':
                     print(wipe)
@@ -479,7 +481,7 @@ Password MUST have:
                     x = True
                     while x:
                         if (len(PASSWORD) < 6 or len(PASSWORD) > 100):
-                            print("\nPassword length between 6 and 12 please")
+                            print("\nPassword length between 6 and 100 please")
                             break
                         elif not re.search("[abcdefghijklmnopqrstuvwx]", PASSWORD):
                             print("\nYou need at least one lower case letter")
@@ -561,6 +563,36 @@ Something Isn't right
 
                         PASSCHECKER()
                 elif PASSWORDQ == '2':
+                    print('''
+Welcome to the file hash section.
+DON'T FORGET TO GIVE IT A FULL PATH AND ADD .TXT TO THE FILE!
+This would OVERWRITE your file and hash each line inside this file.
+Don't forget to save the salt for it.
+                    ''')
+                    FILEPATH = input('File To Hash...: ')
+                    path =open(FILEPATH, 'r')
+                    lines = path.readlines()
+
+                    path = open(FILEPATH, 'w')
+                    for line in lines:
+                        FILETXT = line.encode('utf-8')
+                        SALT = bcrypt.gensalt()
+                        hash = bcrypt.hashpw(FILETXT, SALT).decode('utf-8')
+                        INSIDEFILE = f'{hash} : {line}'
+                        path.write('\n--------------------------------------------------------\n')
+                        path.writelines(INSIDEFILE)
+                        path.write('\n--------------------------------------------------------\n')
+                        print(INSIDEFILE)
+                    print(f'''\n
+All Done. 
+You can find your file in...:', {FILEPATH},
+'Your salt is...:',{SALT}''')
+
+
+
+
+
+                elif PASSWORDQ == '3':
                     print(wipe)
                     print('\n>>>Back To the Main Menu>>>\n')
                     object.HackTools('Elvo.a')
@@ -589,8 +621,7 @@ Something Isn't right
 Known Networks OR Available Networks?
 Known Networks >     [1]
 Available Networks > [2]
-Connect Manually >   [3]
-Main Menu >          [4]                
+Main Menu >          [3]                
 ...:''')
                 if WIFINETAVA == '1':
                     print(wipe)
@@ -599,7 +630,6 @@ Main Menu >          [4]
                     WIFIQU = input('''
 All Known Networks >         [1]
 Connect To A Known network > [2]
-Connect Manually             [3]
 Main Menu >                  [4] 
 ...:''')
                     if WIFIQU == '1':
@@ -756,22 +786,8 @@ Something Isn't right
                     print('\n>>>Back To the Main Menu>>>\n')
                     object.HackTools('Elvo.a')
 
-                # elif WIFINETAVA == '3':
-                #     WIFINAMEMAN = input('Network Name...: ')
-                #     WIFIPASSMAN = input('Network Pass...: ')
-                #
-                #     CMD = subprocess.run(
-                #         ["netsh", "wlan", "set", "hostednetwork", "mode=allow", f"ssid={WIFINAMEMAN}",
-                #          f"key={WIFIPASSMAN}"], capture_output=True).stdout.decode()
-                #     CONNECTCMD = subprocess.run(
-                #         ["netsh", "wlan", "connect", f"ssid={WIFINAMEMAN}",
-                #          f"name={WIFINAMEMAN}"])
-                #     print('Connecting... \n', CMD, CONNECTCMD)
 
                 elif WIFINETAVA == '3':
-                    print('')
-
-                elif WIFINETAVA == '4':
                     print(wipe)
                     print('\n>>>Back To the Main Menu>>>\n')
                     object.HackTools('Elvo.a')
