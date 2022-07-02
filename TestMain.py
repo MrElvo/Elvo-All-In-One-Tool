@@ -1,4 +1,6 @@
 # ----------Banner--------
+import pathlib
+
 from pyfiglet import Figlet
 # from termcolor import colored, cprint
 
@@ -38,6 +40,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet, InvalidToken
+from Kika import KIKA
 import hashlib
 # -----------Brute Force imports-------
 import requests
@@ -46,6 +49,7 @@ import random
 import re
 import bcrypt
 from pathlib import Path
+from os import path
 # -----------Wifi SSIDs imports-------
 import subprocess
 
@@ -87,14 +91,6 @@ Welcome to the Main Menu!
         print(wipe)
         print("You chose...: ", User_Choice)
 
-        # Test module!
-        # if User_Choice == 'BRUTE FORCE':
-        #     print("Nice")
-        # elif User_Choice == 'AES':
-        #     print("Nice")
-        # else:
-        #     print("Not an option :(")
-
         # -----------------------Brute Force-----------------------
         if User_Choice == '1':
             def QUESTIONBRUTEFORCE():
@@ -106,10 +102,10 @@ Welcome to the Main Menu!
 
                 BruteIntro = print('''How would you like to Brute Force?
 
-1.With a Worldlist [1]
-2.With Random Numbers[2]
-3.With Your Own Characters[3]
-4. To Main Menu [4]
+1.With a Worldlist >         [1]
+2.With Random Numbers >      [2]
+3.With Your Own Characters > [3]
+4.Main Menu >                [4]
 ''')
                 BruteChoice = input(str("And your choice would be?\n...: "))
                 print("You chose...: ", BruteChoice)
@@ -307,6 +303,13 @@ To Main Menu [3]
                         return allFiles
                     def main():
                         dirName = input('path...: ')
+                        if filepath.exists():
+                            pass
+                        else:
+                            print('''
+\n-----ERROR-----
+Something Isn't right, Path does not exists.
+-----ERROR-----\n''')
                         looptimes = input('How many times to run...: ')
                         try:
                             number = int(looptimes)
@@ -314,7 +317,7 @@ To Main Menu [3]
                         except ValueError:
                             print('''
 \n-----ERROR-----
-Something Isn't right
+Something Isn't right, numbers only.
 -----ERROR-----\n''')
                             return QUESTIONFERNET()
                         looptimes = number
@@ -377,6 +380,16 @@ key:{key} ''')
 
                         def main():
                             dirName = input('path...: ')
+                            filepath = pathlib.Path(dirName)
+                            if filepath.exists():
+                                pass
+                            else:
+                                print('''
+\n-----ERROR-----
+Something Isn't right, Path does not exists.
+-----ERROR-----\n''')
+                                return QUESTIONFERNET()
+
                             looptimes = input('How many times to run...: ')
                             try:
                                 number = int(looptimes)
@@ -384,7 +397,7 @@ key:{key} ''')
                             except ValueError:
                                 print('''
 \n-----ERROR-----
-Something Isn't right
+Something Isn't right, numbers only.
 -----ERROR-----\n''')
                                 return QUESTIONFERNET()
                             looptimes = number
@@ -461,9 +474,10 @@ you can also hash it.
 ''')
 
                 PASSWORDQ = input('''Test and Hash OR Main Menu? 
-Test and Hash > [1]
-Hash A File >   [2]
-Main Menu >     [3]
+Test and Hash >  [1]
+Hash A File >    [2]
+Verify Passwords [3]
+Main Menu >      [4]
 ...:''')
                 if PASSWORDQ == '1':
                     print(wipe)
@@ -478,30 +492,45 @@ Password MUST have:
 7. Has to have at least one upper case character.
             ''')
                     PASSWORD = input('Check Your Password...:')
+
                     x = True
                     while x:
                         if (len(PASSWORD) < 6 or len(PASSWORD) > 100):
+                            print(wipe)
                             print("\nPassword length between 6 and 100 please")
                             break
-                        elif not re.search("[abcdefghijklmnopqrstuvwx]", PASSWORD):
+
+                        elif not re.search("[a-z]", PASSWORD):
+                            print(wipe)
                             print("\nYou need at least one lower case letter")
                             break
+
                         elif not re.search("[0123456789]", PASSWORD):
+                            print(wipe)
                             print("\nYou need at least one number")
                             break
-                        elif not re.search("[ABCDEFGHIJKLMNOPQRSTUVWX]", PASSWORD):
+
+                        elif not re.search("[A-Z]", PASSWORD):
+                            print(wipe)
                             print("\nYou need at least one upper case character")
                             break
+
                         elif not re.search("[!@#$%]", PASSWORD):
+                            print(wipe)
                             print("\nYou need at least one special character please")
                             break
+
                         elif re.search("\s", PASSWORD):
+                            print(wipe)
                             print("\nYou cannot have blank spaces in your password...")
                             break
+
+
 
                         else:
                             print("Your Password is strong enough")
                             x = False
+
 
                             # -------------Password Hasher-------------
                             def PASSHASHER():
@@ -541,7 +570,7 @@ Main Menu  >          [2]
                                         print(wipe)
                                         print('''
 \n-----ERROR-----
-Something Isn't right
+Something Isn't right 
 -----ERROR-----\n''')
                                     return PASSHASHER()
 
@@ -550,18 +579,21 @@ Something Isn't right
                                     print('\n>>>Back To the Main Menu>>>\n')
                                     return object.HackTools('Elvo.a')
 
+
                             # -------------Password Hasher-------------
                             PASSHASHER()
                             break
-
                     if x:
-                        print(wipe)
                         print('''
 \n-----ERROR-----
-Something Isn't right
+Something Isn't right, Check above.
 -----ERROR-----\n''')
-
                         PASSCHECKER()
+
+
+
+
+
                 elif PASSWORDQ == '2':
                     print('''
 Welcome to the file hash section.
@@ -570,32 +602,85 @@ This would OVERWRITE your file and hash each line inside this file.
 Don't forget to save the salt for it.
                     ''')
                     FILEPATH = input('File To Hash...: ')
-                    path =open(FILEPATH, 'r')
-                    lines = path.readlines()
+                    try:
+                        FILEPATH.exists()
+                        pass
+                        path = open(FILEPATH, 'r')
+                        lines = path.readlines()
 
-                    path = open(FILEPATH, 'w')
-                    for line in lines:
-                        FILETXT = line.encode('utf-8')
-                        SALT = bcrypt.gensalt()
-                        hash = bcrypt.hashpw(FILETXT, SALT).decode('utf-8')
-                        INSIDEFILE = f'{hash} : {line}'
-                        path.write('\n--------------------------------------------------------\n')
-                        path.writelines(INSIDEFILE)
-                        path.write('\n--------------------------------------------------------\n')
-                        print(INSIDEFILE)
-                    print(f'''\n
-All Done. 
-You can find your file in...:', {FILEPATH},
-'Your salt is...:',{SALT}''')
-
+                        path = open(FILEPATH, 'w')
+                        for line in lines:
+                            FILETXT = line.encode('utf-8')
+                            SALT = bcrypt.gensalt()
+                            hash = bcrypt.hashpw(FILETXT, SALT).decode('utf-8')
+                            INSIDEFILE = f'{hash} : {line}'
+                            path.write('\n--------------------------------------------------------\n')
+                            path.writelines(INSIDEFILE)
+                            path.write('\n--------------------------------------------------------\n')
+                            print(INSIDEFILE)
+                        print(f'''\n
+                        All Done. 
+                        You can find your file in...:', {FILEPATH},
+                        'Your salt is...:',{SALT}
+                        Save your salt somewhere safe so you can verify your passwords.''')
+                        object.HackTools('Elvo.a')
+                    except AttributeError:
+                        print(wipe)
+                        print('''
+\n-----ERROR-----
+Something Isn't right, Path does not exists.
+-----ERROR-----\n''')
+                        return PASSCHECKER()
 
 
 
 
                 elif PASSWORDQ == '3':
+
+                    def PASSVERI():
+                        print(wipe)
+                        PASSVERIQ = input('''
+Here you can Verify the Hashed passwords.
+Verify Passwords OR Main Menu:
+Verify Passwords [1]
+Main Menu        [2]
+...: ''')
+                        if PASSVERIQ == '1':
+                            print(wipe)
+                            PASSVERQSEC = input('''
+Verify File OR Verify Password OR Main Menu:
+Verify File     [1]
+Verify Password [2]
+Main Menu       [3]
+                                                ''')
+                            if PASSVERQSEC == '1':
+                                print('Verfiy File, PLACE KEY')
+
+                            elif PASSVERQSEC == '2':
+                                print('Verify Password, PLACE KEY')
+
+                            elif PASSVERQSEC == '3':
+                                print('Main Menu')
+                            else:
+                                print('''
+\n-----ERROR-----
+Something Isn't right.
+-----ERROR-----\n''')
+                                return PASSVERIQ
+                        elif PASSVERIQ == '2':
+                            print(wipe)
+                            print(
+'\n>>>Back To the Main Menu>>>\n')
+                            return object.HackTools('Elvo.a')
+
+                    PASSVERI()
+
+                elif PASSWORDQ == '4':
                     print(wipe)
-                    print('\n>>>Back To the Main Menu>>>\n')
+                    print(
+'\n>>>Back To the Main Menu>>>\n')
                     object.HackTools('Elvo.a')
+
                 else:
                     print(wipe)
                     print('''
@@ -618,7 +703,7 @@ Something Isn't right
             print('Welcome To Wifi Intelligence')
             def WIFISSID():
                 WIFINETAVA = input('''
-Known Networks OR Available Networks?
+Known Networks OR Available Networks OR Main Menu?
 Known Networks >     [1]
 Available Networks > [2]
 Main Menu >          [3]                
@@ -805,7 +890,7 @@ Something Isn't right
             WIFISSID()
             # -----------------------Wifi SSIDs-----------------------
         else:
-            print(wipe)
+            KIKA()
             print('''
 -----ERROR-----
 Something Isn't right

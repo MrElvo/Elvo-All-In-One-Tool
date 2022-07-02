@@ -41,17 +41,26 @@
 # readPasswords()
 
 # elif WIFINETAVA == '3':
-import subprocess
+# import subprocess
+#
+# WIFINAMEMAN = input('Network Name...: ')
+# WIFIPASSMAN = input('Network Pass...: ')
+#
+# CMD = subprocess.run(
+#     ["netsh", "wlan", "set", "hostednetwork", "mode=allow", f"ssid={WIFINAMEMAN}",
+#      f"key={WIFIPASSMAN}"], capture_output=True).stdout.decode()
+# CONNECTCMD = subprocess.run(
+#     ["netsh", "wlan", "connect", f"ssid={WIFINAMEMAN}",
+#      f"name={WIFINAMEMAN}"])
+# CMD
+# CONNECTCMD
+# print('Connecting... \n')
 
-WIFINAMEMAN = input('Network Name...: ')
-WIFIPASSMAN = input('Network Pass...: ')
 
-CMD = subprocess.run(
-    ["netsh", "wlan", "set", "hostednetwork", "mode=allow", f"ssid={WIFINAMEMAN}",
-     f"key={WIFIPASSMAN}"], capture_output=True).stdout.decode()
-CONNECTCMD = subprocess.run(
-    ["netsh", "wlan", "connect", f"ssid={WIFINAMEMAN}",
-     f"name={WIFINAMEMAN}"])
-CMD
-CONNECTCMD
-print('Connecting... \n')
+from Kika import KIKA
+class Wipe(object):
+    def __repr__(self):
+        return '\n' * 10000
+wipe = Wipe()
+
+
