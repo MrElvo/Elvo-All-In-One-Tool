@@ -4,11 +4,10 @@ FOR EDUCATIONAL PURPOSES ONLY!!
  Welcome to All-In-One-Elvo Tool!
  
  This tool would provide you with the following tools:
- 1. Web Brute-Force
- 2. Fernet Encryption
- 3. Password Checker + Hasher
- 4. Wifi Finder
- 5. 
+ Brute-Force >             [1]
+ Elvo Encryption >         [2]
+ Password Checker+Hasher > [3]
+ Wifi Intelligence >       [4]
  
  
  
