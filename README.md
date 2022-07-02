@@ -5,9 +5,9 @@ FOR EDUCATIONAL PURPOSES ONLY!!
  
  This tool would provide you with the following tools:
  1. Brute-Force >           
- 2.Elvo Encryption >        
- 3.Password Checker+Hasher >
- 4.Wifi Intelligence > 
+ 2. Elvo Encryption >        
+ 3. Password Checker+Hasher >
+ 4. Wifi Intelligence > 
  
  
  
