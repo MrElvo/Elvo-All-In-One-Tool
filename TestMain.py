@@ -261,18 +261,17 @@ Something Isn't right
                 file.write(key)
                 file.close()
 
-            password_provided = "The Password That Is Being UseD HerE iS Kika"  # This is input in the form of a string
+            password_provided = "password"  # This is input in the form of a string
             password = password_provided.encode()  # Convert to type bytes
-            salt = b'in7\xf9\xdc\xe1\xf9$\xda\x0c\x1b\xffT\x12QZ\x07\\\\\x0e\xc6\xeb\xe4\xec\x80\xfa\xc70 \xa4\x17`\xe6[\xb5R\xe5E\xcdm\xa3\xadf\xaf\x19\xc6\xa1\x14=\x80E\x1b\xfd\xd9\x84\x00Bk:\x03\xb3\xd3\x9d\xf5m\xf7\xa5\xb5\xd8\x8b\x17\x1b\xfa\xb6f\x04\x9c?\xc9R\xab\x0c\xcd\xac\x04=\xb0\xbeRl|\x9cY$\xd2\xbc\xc6|\xbbe{8:\x94\x0f\x0b\x1b\xf1\xb82l\xb8B\xf7ri8t*\xe6\xa5\x9f\xcc\xb2\xa9OW\'K\xcb\x9f\x9f\x12\xab\xb5\xde:\xf8\xb7X67\xf90\x10\xb6_\xec\'\x1a2\xea\x1a\xc7\xef\xbc\xce\xd7\xb5\x8d\xfe5\xf9\xd8\x94O1\xfb\x10\xb0\xae\xbcK\x05f\xd3/\xea\xf9\xeb=\x99]\xc9 K\x07\x1bD(\xbbj/\xe9,\x977"#\xfa`\xb4\x83\x17\xc1\xff\xa3\x9a\x11\xf1;^\xba\xf6/\xe3\x8b\x9eAy\xb31\xed<\x92\xf3\xb9\xea}Z\x16\xb9R\xd3\xbb\x03\x17w\xe6\x00\xb7\x83\xa9\x0e\xb4\x9a\x101\x17\xd4;\xd0\xf7l\r\t'
-            # CHANGE THIS - recommend using a key from os.urandom(16), must be of type bytes
+            salt = b'\xa6\xfd\x1e\x84\xb0\xe2\x1a\x1cQ\xbd\xfb\xcc\xa6*\xf25\x86\xe2[\xed\xc2\xf3=[,\x13K\x1d\xdc\xad\x9e33\x9a5\x06\t\xdf%\x15\xaa\x86\xcf:\nN\xf8\xc1\x10\xf4N\xc26;:\xea\xf4\x02\x0fa7\xdf\xe3*\xf2\x8e:|\xd2\xbb_\xec4\x1b=\x83.j3\x9e\xf0\xba\x0e\xfb\xa2}h\xca\xa0\xc6\xeeK\x10v\x9fj+.pa\x1b\xe1\x08\xdf7\xb8\xb9\x8cb\x83(\x121\x7f]:\x0f\xb0\x834Gtq\x9a\x15\xdf\x1b\x91-\x04\xa2\xb7\xb9\xf80\x01\x1e\xeas1qj\n\xe2\xe0q45\xd1\x91g\xbb\x83G\x1dQf=\xd5\xd2\xd2z\x98\xaf\x164\xfeCZ\xda\x8cLR\x93c\x08\x07\x9f\xcb\x1fQD\x15\xf9\x83\x01\xc9\xb9Q\xe4\xf3\x82Cmq?\x8b\x92C\na\x8e\x92NB85\xb2\xf8\xbfFZk\x06\xda~g\xdcI\xbe\xdfN\xaa\x902Q\xa2\x1eV\x0f\xa1\xd8\xa7J\xbe=\xba\xc5y\xb8\nY\x1e\xdc\x83\xe5\xd0s\xca j\x8a\xbd\x10\x11\x18'  # CHANGE THIS - recommend using a key from os.urandom(16), must be of type bytes
             kdf = PBKDF2HMAC(
                 algorithm=hashes.SHA256(),
-                length=64,
+                length=32,
                 salt=salt,
-                iterations=400000,
+                iterations=300000,
                 backend=default_backend()
             )
-            key = base64.urlsafe_b64encode(kdf.derive(password))  # Can only use kdf once
+            key = base64.urlsafe_b64encode(kdf.derive(password))
 
             def QUESTIONFERNET():
 
@@ -303,13 +302,13 @@ To Main Menu [3]
                         return allFiles
                     def main():
                         dirName = input('path...: ')
-                        if filepath.exists():
-                            pass
-                        else:
-                            print('''
-\n-----ERROR-----
-Something Isn't right, Path does not exists.
------ERROR-----\n''')
+#                         if dirName.exists():
+#                             pass
+#                         else:
+#                             print('''
+# \n-----ERROR-----
+# Something Isn't right, Path does not exists.
+# -----ERROR-----\n''')
                         looptimes = input('How many times to run...: ')
                         try:
                             number = int(looptimes)
@@ -322,7 +321,7 @@ Something Isn't right, numbers only.
                             return QUESTIONFERNET()
                         looptimes = number
                         if number <= 0:
-                         number = 1
+                         number += 1
 
                         counter = 0
 
