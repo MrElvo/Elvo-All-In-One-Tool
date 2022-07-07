@@ -318,7 +318,7 @@ Something Isn't right, Path does not exists.
                         except ValueError:
                             print('''
 \n-----ERROR-----
-Something Isn't right, numbers only.
+Something Isn't right, Numbers only!.
 -----ERROR-----\n''')
                             return QUESTIONFERNET()
                         looptimes = number
