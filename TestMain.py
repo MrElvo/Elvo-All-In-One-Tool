@@ -60,7 +60,11 @@ import subprocess
 - Add English only to the Password Checker Hasher
 - Add File with Passwords to hash
 -Error Check
--
+- Internet speed teseter + info about your network system
+-random choice
+-endless loop
+-sniffing dog art
+
 
 
 '''
@@ -80,18 +84,24 @@ class AllinOne:
         # custom_menu = Figlet(font='digital')
         print(('''
 Welcome to the Main Menu!
-
+--------------------------------------
  | For | Brute-Force >             [1]
  | For | Elvo Encryption >         [2]
  | For | Password Checker+Hasher > [3]
  | For | Wifi Intelligence >       [4]
+ | For | Feeling lucky? >          [5]
+--------------------------------------
 
  '''))
+
         User_Choice = input("And your choice would be?\n...: ")
         print(wipe)
         print("You chose...: ", User_Choice)
 
-        # -----------------------Brute Force-----------------------
+
+
+
+        # -----------------------Brute Force-----------------------.
         if User_Choice == '1':
             def QUESTIONBRUTEFORCE():
                 # custombruteforce = Figlet(font='bubble')
@@ -918,6 +928,28 @@ Something Isn't right
 
             WIFISSID()
             # -----------------------Wifi SSIDs-----------------------
+        elif User_Choice == '5':
+            def RANDOMCHOICE():
+                n = random.randint(1, 5)
+                if n == 1:
+                    print(n)
+                    return QUESTIONBRUTEFORCE()
+                elif n == 2:
+                    print(n)
+                    return QUESTIONFERNET()
+                elif n == 3:
+                    print(n)
+                    return PASSCHECKER()
+                elif n == 4:
+                    print(n)
+                    return WIFISSID()
+                elif n == 5:
+                    print(n)
+                    print('try again')
+                    return RANDOMCHOICE()
+            RANDOMCHOICE()
+
+
         else:
             KIKA()
             print('''
