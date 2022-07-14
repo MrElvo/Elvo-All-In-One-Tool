@@ -16,4 +16,4 @@ Hope you enjoy it.
 Inside the code there is a secret flag about my dog you can find it by looking at the code but what's the fun in it?
 try finding it by breaking the code and then you would find clues for it.
 
-[![That is my dog Kika](kika "That is my dog Kika")](https://github.com/MrElvo/PT-HDE/blob/main/KIKA.jpg "That is my dog Kika")
+
