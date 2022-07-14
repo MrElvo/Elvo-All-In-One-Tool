@@ -1,66 +1,26 @@
-# import os.path
-#
-# def checkExistence():
-#     if os.path.exists("info.txt"):
-#         pass
-#     else:
-#         file = open("info.txt", 'w')
-#         file.close()
-#
-# def appendNew():
-#     # This function will append new password in the txt file
-#     file = open("info.txt", 'a',encoding='utf-8')
-#
-#     print()
-#     print()
-#
-#     userName = input("Please enter the user name: ")
-#     password = input("Please enter the password here: ")
-#     website = input("Please enter the website address here: ")
-#     print()
-#     print()
-#
-#     usrnm = str(f"UserName: {userName}  \n")
-#     pwd = str(f"Password: {password}  \n")
-#     web = str(f"Website: {website}  \n")
-#
-#     file.write("---------------------------------\n")
-#     file.write(usrnm)
-#     file.write(pwd)
-#     file.write(web)
-#     file.write("---------------------------------\n")
-#     file.write("\n")
-#     file.close
-# appendNew()
-#
-# def readPasswords():
-#     file = open('info.txt', 'r')
-#     content = file.read()
-#     file.close()
-#     print(content)
-# readPasswords()
+from difflib import Differ
 
-# elif WIFINETAVA == '3':
-# import subprocess
-#
-# WIFINAMEMAN = input('Network Name...: ')
-# WIFIPASSMAN = input('Network Pass...: ')
-#
-# CMD = subprocess.run(
-#     ["netsh", "wlan", "set", "hostednetwork", "mode=allow", f"ssid={WIFINAMEMAN}",
-#      f"key={WIFIPASSMAN}"], capture_output=True).stdout.decode()
-# CONNECTCMD = subprocess.run(
-#     ["netsh", "wlan", "connect", f"ssid={WIFINAMEMAN}",
-#      f"name={WIFINAMEMAN}"])
-# CMD
-# CONNECTCMD
-# print('Connecting... \n')
+print('''
+Welcome to the File Compartor Section.
+---Code Meaning---
+‘-‘ line unique to sequence 1
+‘+’ line unique to sequence 2
+‘ 'line common to both sequences
+‘?’ line not present in either input sequence
+---Code Meaning---
+
+DON'T FORGET TO ADD .txt TO THE FILE IN ORDER FOR IT TO WORK
+''')
+
+FILEONE = input('File 1 ...: ')
+FILETWO = input('File 2 ...: ')
+
+with open(FILEONE) as file_1, open(FILETWO) as file_2:
+	differ = Differ()
 
 
-from Kika import KIKA
-class Wipe(object):
-    def __repr__(self):
-        return '\n' * 10000
-wipe = Wipe()
+	for line in differ.compare(file_1.readlines(), file_2.readlines()):
+		print(line)
+
 
 

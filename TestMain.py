@@ -48,10 +48,13 @@ import random
 # -----------Check+Hasher imports-------
 import re
 import bcrypt
-from pathlib import Path
 from os import path
+from getpass import getpass
+from bcrypt import hashpw, gensalt, checkpw
 # -----------Wifi SSIDs imports-------
 import subprocess
+# -----------Compartor-------
+from difflib import Differ
 
 # -----------IMPORTS-------
 
@@ -61,14 +64,14 @@ import subprocess
 - Add File with Passwords to hash
 -Error Check
 - Internet speed teseter + info about your network system
--random choice
--endless loop
+
 -sniffing dog art
 
 
 
 '''
 # TODO: -----------TODO-------
+
 class Wipe(object):
     def __repr__(self):
         return '\n' * 10000
@@ -76,6 +79,7 @@ wipe = Wipe()
 
 # custom_fig = Figlet(font='5lineoblique')
 # print(custom_fig.renderText("Welcome To Elvo All In One Tool"))
+print(wipe)
 print('Welcome to All-In-One Elvo Tool')
 
 class AllinOne:
@@ -89,7 +93,7 @@ Welcome to the Main Menu!
  | For | Elvo Encryption >         [2]
  | For | Password Checker+Hasher > [3]
  | For | Wifi Intelligence >       [4]
- | For | Feeling lucky? >          [5]
+ | For | File Compartor >          [5]
 --------------------------------------
 
  '''))
@@ -487,8 +491,7 @@ you can also hash it.
                 PASSWORDQ = input('''Test and Hash OR Main Menu? 
 Test and Hash >  [1]
 Hash A File >    [2]
-Verify Passwords [3]
-Main Menu >      [4]
+Main Menu >      [3]
 ...:''')
                 if PASSWORDQ == '1':
                     print(wipe)
@@ -535,9 +538,6 @@ Password MUST have:
                             print(wipe)
                             print("\nYou cannot have blank spaces in your password...")
                             break
-
-
-
                         else:
                             print("Your Password is strong enough")
                             x = False
@@ -613,29 +613,30 @@ This would OVERWRITE your file and hash each line inside this file.
 Don't forget to save the salt for it.
                     ''')
                     FILEPATH = input('File To Hash...: ')
-                    try:
-                        FILEPATH.exists()
-                        pass
+                    filepath = pathlib.Path(FILEPATH)
+                    if filepath.exists():
                         path = open(FILEPATH, 'r')
                         lines = path.readlines()
+                        SALT = bcrypt.gensalt()
 
                         path = open(FILEPATH, 'w')
                         for line in lines:
                             FILETXT = line.encode('utf-8')
-                            SALT = bcrypt.gensalt()
-                            hash = bcrypt.hashpw(FILETXT, SALT).decode('utf-8')
-                            INSIDEFILE = f'{hash} : {line}'
+                            SALTS = SALT
+                            hash = bcrypt.hashpw(FILETXT, SALTS).decode('utf-8')
+
+                            INSIDEFILE = f'The Line Before: {line} > The Line After: {hash}'
                             path.write('\n--------------------------------------------------------\n')
                             path.writelines(INSIDEFILE)
                             path.write('\n--------------------------------------------------------\n')
                             print(INSIDEFILE)
                         print(f'''\n
-                        All Done. 
-                        You can find your file in...:', {FILEPATH},
-                        'Your salt is...:',{SALT}
-                        Save your salt somewhere safe so you can verify your passwords.''')
+All Done. 
+You can find your file in...: {FILEPATH}
+Your salt is...: {SALT}
+Save your salt somewhere safe so you can verify your passwords.''')
                         object.HackTools('Elvo.a')
-                    except AttributeError:
+                    else:
                         print(wipe)
                         print('''
 \n-----ERROR-----
@@ -644,49 +645,7 @@ Something Isn't right, Path does not exists.
                         return PASSCHECKER()
 
 
-
-
                 elif PASSWORDQ == '3':
-
-                    def PASSVERI():
-                        print(wipe)
-                        PASSVERIQ = input('''
-Here you can Verify the Hashed passwords.
-Verify Passwords OR Main Menu:
-Verify Passwords [1]
-Main Menu        [2]
-...: ''')
-                        if PASSVERIQ == '1':
-                            print(wipe)
-                            PASSVERQSEC = input('''
-Verify File OR Verify Password OR Main Menu:
-Verify File     [1]
-Verify Password [2]
-Main Menu       [3]
-                                                ''')
-                            if PASSVERQSEC == '1':
-                                print('Verfiy File, PLACE KEY')
-
-                            elif PASSVERQSEC == '2':
-                                print('Verify Password, PLACE KEY')
-
-                            elif PASSVERQSEC == '3':
-                                print('Main Menu')
-                            else:
-                                print('''
-\n-----ERROR-----
-Something Isn't right.
------ERROR-----\n''')
-                                return PASSVERIQ
-                        elif PASSVERIQ == '2':
-                            print(wipe)
-                            print(
-'\n>>>Back To the Main Menu>>>\n')
-                            return object.HackTools('Elvo.a')
-
-                    PASSVERI()
-
-                elif PASSWORDQ == '4':
                     print(wipe)
                     print(
 '\n>>>Back To the Main Menu>>>\n')
@@ -726,7 +685,7 @@ Main Menu >          [3]
                     WIFIQU = input('''
 All Known Networks >         [1]
 Connect To A Known network > [2]
-Main Menu >                  [4] 
+Main Menu >                  [3] 
 ...:''')
                     if WIFIQU == '1':
                         print(wipe)
@@ -928,26 +887,72 @@ Something Isn't right
 
             WIFISSID()
             # -----------------------Wifi SSIDs-----------------------
+            # -----------------------File Compartor-----------------------
         elif User_Choice == '5':
-            def RANDOMCHOICE():
-                n = random.randint(1, 5)
-                if n == 1:
-                    print(n)
-                    return QUESTIONBRUTEFORCE()
-                elif n == 2:
-                    print(n)
-                    return QUESTIONFERNET()
-                elif n == 3:
-                    print(n)
-                    return PASSCHECKER()
-                elif n == 4:
-                    print(n)
-                    return WIFISSID()
-                elif n == 5:
-                    print(n)
-                    print('try again')
-                    return RANDOMCHOICE()
-            RANDOMCHOICE()
+            print(wipe)
+            def FILECOMPARTOR():
+                print('''
+Welcome to the File Compartor Section.
+---Code Meaning---
+‘-‘ line unique to sequence 1
+‘+’ line unique to sequence 2
+‘ 'line common to both sequences
+‘?’ line not present in either input sequence
+---Code Meaning---
+
+DON'T FORGET TO ADD .txt TO THE FILE IN ORDER FOR IT TO WORK
+''')
+                FILEONE = input('File 1 ...: ')
+                filepath = pathlib.Path(FILEONE)
+                if filepath.exists():
+                    FILETWO = input('File 2 ...: ')
+                    filepath = pathlib.Path(FILETWO)
+                    if filepath.exists():
+                        with open(FILEONE) as file_1, open(FILETWO) as file_2:
+                            differ = Differ()
+
+                            print(wipe)
+                            for line in differ.compare(file_1.readlines(), file_2.readlines()):
+                                print(line)
+                            def FILECOMPRET():
+                                print('''
+Back to Main Menu OR another Compare
+Another Compare > [1]
+Main Menu >       [2]''')
+                                FILECOMPBCK = input('...: ')
+                                if FILECOMPBCK == '1':
+                                    return FILECOMPARTOR()
+                                elif FILECOMPBCK == '2':
+                                    print(wipe)
+                                    print('\n>>>Back To the Main Menu>>>\n')
+                                    object.HackTools('Elvo.a')
+                                else:
+                                    print(wipe)
+                                    print('''
+\n-----ERROR-----
+Something Isn't right, Try again.
+-----ERROR-----\n''')
+                                    return FILECOMPRET()
+                            FILECOMPRET()
+
+                    else:
+                        print(wipe)
+                        print('''
+\n-----ERROR-----
+Something Isn't right, Path does not exists.
+-----ERROR-----\n''')
+                        return FILECOMPARTOR()
+                else:
+                    print(wipe)
+                    print('''
+\n-----ERROR-----
+Something Isn't right, Path does not exists.
+-----ERROR-----\n''')
+                    return FILECOMPARTOR()
+            FILECOMPARTOR()
+
+
+            # -----------------------File Compartor-----------------------
 
 
         else:
