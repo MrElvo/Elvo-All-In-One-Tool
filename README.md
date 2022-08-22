@@ -12,5 +12,8 @@ Hope you enjoy it.
  - Wifi Intelligence
  - File Compartor 
  - Speed Test
-
+ #Instructions                                                                                                                                                                  
+- Download All-In-One Folder
+- Run AllinOne.py
+- Enjoy!                                                                                                                                                                       
 *Still in development* 
