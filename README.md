@@ -1,19 +1,19 @@
-# All-In-One-Elvo Tool
-**FOR EDUCATIONAL PURPOSES ONLY **
-
+# Welcome To All-In-One-Elvo Tool!
+**FOR EDUCATIONAL PURPOSES ONLY **                                                                                                                                                    
+*Still in development* 
 ### About
 I have made this tool in order to learn python.                                                                                                                                        
 Hope you enjoy it.
 
- # All-In-One Tools
+ # Inside The Tool
  - Brute-Force
  - Elvo Encryption
  - Password Checker+Hasher
  - Wifi Intelligence
  - File Compartor 
  - Speed Test
- #Instructions                                                                                                                                                                  
-- Download All-In-One Folder
-- Run AllinOne.py
-- Enjoy!                                                                                                                                                                       
-*Still in development* 
+ 
+ # How To Use?   
+ - Download All-In-One Folder
+ - Run AllinOne.py
+ - Enjoy!                                                                                                                                                                 
