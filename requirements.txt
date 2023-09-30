@@ -1,0 +1,9 @@
+pyfiglet
+requests
+random2  # Random module (as 'random' is a built-in Python module)
+pathlib2  # pathlib module (as 'pathlib' is a built-in Python module)
+difflib
+base64
+cryptography
+bcrypt
+getpass
